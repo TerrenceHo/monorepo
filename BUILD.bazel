@@ -1,0 +1,19 @@
+load("@bazel_gazelle//:def.bzl", "gazelle")
+gazelle(name = "gazelle")
+
+# Gazelle configration options
+# https://github.com/bazelbuild/bazel-gazelle#running-gazelle-with-bazel
+# gazelle:prefix github.com/TerrenceHo/monorepo
+#
+# Exclusions
+# gazelle:exclude: */vendor
+# gazelle:exclude: .bazel
+# gazelle:exclude: bazel-out
+# gazelle:exclude: **/node_modules
+# gazelle:exclude: third_party
+#
+# Being explicit about naming conventions
+# gazelle:go_naming_convention import
+# gazelle:go_naming_convention_external import
+
+
