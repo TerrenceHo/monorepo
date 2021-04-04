@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "fib",
+    srcs = ["fib.go"],
+    importpath = "github.com/TerrenceHo/monorepo/fib",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "fib_test",
+    size = "small",
+    srcs = ["fib_test.go"],
+    embed = [":fib"],
+)
