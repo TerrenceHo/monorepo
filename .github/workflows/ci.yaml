@@ -1,6 +1,6 @@
 name: CI
 
-on: [push, pullrequest]
+on: [push, pull_request]
 jobs:
   test:
     # virtual environments: https://github.com/actions/virtual-environments
