@@ -11,6 +11,7 @@ type fibTest struct {
 }
 
 var fibTests = []fibTest{
+	{0, 0},
 	{1, 1},
 	{2, 1},
 	{3, 2},
