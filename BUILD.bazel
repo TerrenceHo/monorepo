@@ -51,3 +51,11 @@ gazelle(
     ],
     command = "update-repos",
 )
+
+##### TEMPORARY
+# TODO(Terrence Ho): Remove this
+genrule(
+    name = "hello20s",
+    outs = ["hello20s.txt"],
+    cmd_bash = "sleep 20 && echo 'hello20s' >$@",
+)
