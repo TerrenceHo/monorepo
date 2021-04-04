@@ -1,9 +1,11 @@
 load("@bazel_gazelle//:def.bzl", "gazelle")
+
 gazelle(name = "gazelle")
 
 # Gazelle configration options
 # https://github.com/bazelbuild/bazel-gazelle#running-gazelle-with-bazel
 # gazelle:prefix github.com/TerrenceHo/monorepo
+# gazelle:build_file_name BUILD,BUILD.bazel
 #
 # Exclusions
 # gazelle:exclude: */vendor
@@ -16,4 +18,36 @@ gazelle(name = "gazelle")
 # gazelle:go_naming_convention import
 # gazelle:go_naming_convention_external import
 
+# update_build_files is a convenience target. See
+# https://github.com/bazelbuild/bazel-gazelle#update-repos.
+gazelle(
+    name = "update_build_files",
+    command = "update",
+)
 
+# check_build_files diffs which BUILD files are going to change. Exits with code
+# 1 if files need to change, else code 0.
+gazelle(
+    name = "check_build_files",
+    command = "update",
+    extra_args = [
+        "-mode",
+        "diff",
+    ],
+)
+
+# update_go_deps is a convenience target. See
+# https://github.com/bazelbuild/bazel-gazelle#update-repos.
+gazelle(
+    name = "update_go_deps",
+    args = [
+        "-to_macro=bazel/go/deps.bzl%fetch_go_deps",
+        "-from_file=go.mod",
+        # -build_file_proto_mod=disable_global is set so that all pregenerated
+        # pb.go files are used for all external repos. Prevents lots of
+        # warnings.
+        "-build_file_proto_mode=disable_global",
+        "-prune=true",
+    ],
+    command = "update-repos",
+)

@@ -1,0 +1,40 @@
+.bazel
+.bazelrc.user
+bazel.out
+/bazel-*
+
+# OSX Cache
+.DS_Store
+
+# backupfiles
+*~
+
+# Vim .swp files
+*.swp
+
+# VSCode settings
+.vscode/settings.json
+.vscode/launch.json
+.vscode/*.code-workspace
+
+# Jetbrains editors
+.idea/
+.ijwb/
+
+# Eslint cache files
+.eslintcache
+
+# Node Modules
+node_modules/
+
+# python cache
+__pycache__/
+
+# nested go.mod files are generated as needed from bazel source-of-truth
+**/go.mod
+**/go.sum
+# Except third_party vendored deps
+!third_party/**/go.mod
+!third_party/**/go.sum
+!/go.mod
+!/go.sum

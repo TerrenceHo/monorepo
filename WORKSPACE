@@ -2,7 +2,8 @@ workspace(
     name = "com_github_terrenceho_monorepo",
 )
 
-load("//bazel:workspace_deps.fzf", "fetch_deps")
+load("//bazel:workspace_deps.bzl", "fetch_deps")
+
 fetch_deps()
 
 # Needed for skylark unit testing
@@ -22,8 +23,10 @@ load("@io_bazel_rules_go//extras:embed_data_deps.bzl", "go_embed_data_dependenci
 
 go_embed_data_dependencies()
 
-# Custom go depedencies
-# fetch_go_deps()
+load("//bazel/go:deps.bzl", "fetch_go_deps")
+
+# gazelle:repository_macro bazel/go/deps.bzl%fetch_go_deps
+fetch_go_deps()
 
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
