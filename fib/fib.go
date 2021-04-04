@@ -19,6 +19,9 @@ func FibRecursive(n int) int {
 // function that recurses down to n = 1, and then builds the cache moving
 // backwards. The number at the greatest index is the resulting answer.
 func FibRecursiveCache(n int) int {
+	if n < 2 {
+		return n
+	}
 	cache := make([]int, n+1, n+1)
 	fibRecursiveCache(n, &cache)
 	return cache[n]
@@ -52,6 +55,9 @@ func fibTailRecursive(n, first, second int) int {
 // Linear, iterative implementation.  Uses a for loop, and pre delcares temp
 // variables to avoid initialization every loop.
 func FibIterative(n int) int {
+	if n < 2 {
+		return n
+	}
 	var temp int
 	first := 0
 	second := 1
