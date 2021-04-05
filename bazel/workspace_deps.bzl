@@ -1,4 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 def fetch_deps():
     http_archive(
@@ -26,4 +27,30 @@ def fetch_deps():
             "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.23.0/bazel-gazelle-v0.23.0.tar.gz",
             "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.23.0/bazel-gazelle-v0.23.0.tar.gz",
         ],
+    )
+
+    http_archive(
+        name = "rules_proto",
+        sha256 = "602e7161d9195e50246177e7c55b2f39950a9cf7366f74ed5f22fd45750cd208",
+        strip_prefix = "rules_proto-97d8af4dc474595af3900dd85cb3a29ad28cc313",
+        urls = [
+            "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
+            "https://github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
+        ],
+    )
+
+    http_archive(
+        name = "com_github_grpc_grpc",
+        urls = [
+            "https://mirror.bazel.build/github.com/grpc/grpc/archive/3e53dbe8213137d2c731ecd4d88ebd2948941d75.tar.gz",
+            "https://github.com/grpc/grpc/archive/3e53dbe8213137d2c731ecd4d88ebd2948941d75.tar.gz",
+        ],
+        strip_prefix = "grpc-3e53dbe8213137d2c731ecd4d88ebd2948941d75",
+    )
+
+    git_repository(
+        name = "com_google_protobuf",
+        commit = "878be3569eaa552d45f50406b410c80da5e70447",
+        remote = "https://github.com/protocolbuffers/protobuf",
+        shallow_since = "1617386816 -0700",
     )
