@@ -23,6 +23,8 @@ def fetch_deps():
     http_archive(
         name = "bazel_gazelle",
         sha256 = "62ca106be173579c0a167deb23358fdfe71ffa1e4cfdddf5582af26520f1c66f",
+        patch_args = ["-p1"],
+        patches = ["//bazel/patches:gazelle.patch"],
         urls = [
             "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.23.0/bazel-gazelle-v0.23.0.tar.gz",
             "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.23.0/bazel-gazelle-v0.23.0.tar.gz",
@@ -42,7 +44,6 @@ def fetch_deps():
     http_archive(
         name = "com_github_grpc_grpc",
         urls = [
-            "https://mirror.bazel.build/github.com/grpc/grpc/archive/3e53dbe8213137d2c731ecd4d88ebd2948941d75.tar.gz",
             "https://github.com/grpc/grpc/archive/3e53dbe8213137d2c731ecd4d88ebd2948941d75.tar.gz",
         ],
         sha256 = "89bab58f7bd36f2826b0bde92ea5668324642fe281d636dd18025354586cb764",

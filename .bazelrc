@@ -1,0 +1,52 @@
+###############################
+# Settings for running builds #
+###############################
+
+# Cache action outputs on local disk so they persist across output_bae and bazel
+# shutdown (helps with cache thrashing when changing branches).
+build --disk_cache=~/.cache/bazel-disk-cache
+
+# show output files created by builds requested more than one target.
+# Helps locate build outputs.
+build --show_result=20
+
+# Turn off legacy external runfiles. Bazel will remove these soon.
+build --nolegacy_external_runfiles
+
+# Turn on --incompatible_strict_action_env. Ensures that bazel cache is not
+# invalidated when `yarn bazel` is run.
+build --incompatible_strict_action_env
+run --incompatible_strict_action_env
+
+# Avoid using random headers on a machine that can interfere with Bazel's C++
+# toolchains
+build --strict_system_includes
+
+# Don't automatically create __init__.py files. Developers must place these
+# files into the source tree themselves.
+build --incompatible_default_to_explicit_init_py
+
+##############################
+# Settings for running tests #
+##############################
+
+# complain about test size, encourage size="small" in test rules
+test --test_verbose_timeout_warnings
+
+# show test error outputs
+test --test_output=errors
+
+# show the test summary. Show detailed information about failed tests
+# test --test_summary=detailed
+
+
+############################
+# Settings for local users #
+############################
+
+# Try to import local user settings. The .bazelrc.user file is in the
+# .gitignore, so it will not be checked into source repo. This configuration
+# needs to be last. We use .bazelrc.user so that the file appears next to the
+# .bazelrc when listing directories.
+try-import %workspace%/.bazelrc.user
+# DO NOT ADD ANYTHING ELSE AFTER THIS!

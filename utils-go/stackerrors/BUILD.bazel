@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "stackerrors",
+    srcs = [
+        "doc.go",
+        "errors.go",
+        "stacktrace.go",
+    ],
+    importpath = "github.com/TerrenceHo/monorepo/utils-go/stackerrors",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "stackerrors_test",
+    size = "small",
+    srcs = [
+        "errors_test.go",
+        "stacktrace_test.go",
+    ],
+    embed = [":stackerrors"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
