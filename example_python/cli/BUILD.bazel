@@ -1,0 +1,13 @@
+load("//bazel/python:rules.bzl", "py_binary", "py_library", "py_test")
+load("@example_python_pip_deps//:requirements.bzl", "requirement")
+
+py_binary(
+    name = "server",
+    srcs = ["main.py"],
+    main = "main.py",
+    python_version = "PY3",
+    deps = [
+        "//example_python/example",
+        requirement("flask"),
+    ],
+)

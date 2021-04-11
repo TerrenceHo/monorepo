@@ -32,6 +32,21 @@ load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
 gazelle_dependencies()
 
+##### Python Dependencies
+
+# load the python interpreter first
+load("//bazel/python/interpreter:setup_python_interpreter.bzl", "setup_python_interpreter")
+
+setup_python_interpreter()
+
+load("//bazel/python:deps.bzl", "fetch_python_deps")
+
+fetch_python_deps()
+
+register_toolchains(
+    "//bazel/python/interpreter:monorepo_py_toolchain",
+)
+
 ##### Protobuf Dependencies
 
 load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
