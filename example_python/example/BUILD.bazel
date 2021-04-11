@@ -1,0 +1,8 @@
+load("//bazel/python:rules.bzl", "py_library")
+
+py_library(
+    name = "example",
+    srcs = glob(["*.py"]),
+    imports = ["./*"],
+    visibility = ["//visibility:public"],
+)

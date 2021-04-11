@@ -45,6 +45,7 @@ def fetch_deps():
             "https://mirror.bazel.build/github.com/grpc/grpc/archive/3e53dbe8213137d2c731ecd4d88ebd2948941d75.tar.gz",
             "https://github.com/grpc/grpc/archive/3e53dbe8213137d2c731ecd4d88ebd2948941d75.tar.gz",
         ],
+        sha256 = "89bab58f7bd36f2826b0bde92ea5668324642fe281d636dd18025354586cb764",
         strip_prefix = "grpc-3e53dbe8213137d2c731ecd4d88ebd2948941d75",
     )
 
@@ -53,4 +54,10 @@ def fetch_deps():
         commit = "878be3569eaa552d45f50406b410c80da5e70447",
         remote = "https://github.com/protocolbuffers/protobuf",
         shallow_since = "1617386816 -0700",
+    )
+
+    http_archive(
+        name = "rules_python",
+        url = "https://github.com/bazelbuild/rules_python/releases/download/0.1.0/rules_python-0.1.0.tar.gz",
+        sha256 = "b6d46438523a3ec0f3cead544190ee13223a52f6a6765a29eae7b7cc24cc83a0",
     )
