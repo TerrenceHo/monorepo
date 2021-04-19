@@ -51,6 +51,13 @@ def fetch_go_deps():
         version = "v0.1.0",
     )
     go_repository(
+        name = "com_github_fsnotify_fsnotify",
+        importpath = "github.com/fsnotify/fsnotify",
+        sum = "h1:hsms1Qyu0jgnwNXIxa+/V/PDsU6CfLf6CNO8H7IWoS4=",
+        version = "v1.4.9",
+    )
+
+    go_repository(
         name = "com_github_golang_glog",
         importpath = "github.com/golang/glog",
         sum = "h1:VKtxabqXZkF25pY9ekfRL6a582T4P37/31XEstQ5p58=",
