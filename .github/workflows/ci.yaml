@@ -14,9 +14,9 @@ jobs:
           cache-name: bazel-cache
         with:
           path: |
-            ~/.cache/bazelisk  # cache bazel binary
-            ~/.cache/bazel     # cache bazel outputs and test runs
-          key: bazel-${{ runner.os }}-${{ env.cache-name }}
+            ~/.cache/bazelisk          # cache bazel binary
+            ~/.cache/bazel-disk-cache  # cache bazel outputs and test runs
+          key: bazel-${{ runner.os }}-${{ env.cache-name }}-v0.1.0
 
 
       # Checks-out your repository under $GITHUB_WORKSPACE, which is the CWD for
