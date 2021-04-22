@@ -1,0 +1,32 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "autofresh_lib",
+    srcs = ["main.go"],
+    importpath = "github.com/TerrenceHo/monorepo/autofresh/cmd/autofresh",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//autofresh",
+        "//utils-go/stackerrors",
+        "@com_github_spf13_cobra//:cobra",
+        "@com_github_spf13_viper//:viper",
+    ],
+)
+
+go_binary(
+    name = "autofresh",
+    embed = [":autofresh_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "autofresh_test",
+    size = "small",
+    srcs = ["main_test.go"],
+    embed = [":autofresh_lib"],
+    deps = [
+        "//autofresh",
+        "@com_github_spf13_cobra//:cobra",
+        "@com_github_stretchr_testify//assert",
+    ],
+)

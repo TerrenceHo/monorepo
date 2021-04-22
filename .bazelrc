@@ -2,6 +2,9 @@
 # Settings for running builds #
 ###############################
 
+# Set symlinks to output artifacts into .bazel/
+build --symlink_prefix=.bazel/
+
 # Cache action outputs on local disk so they persist across output_bae and bazel
 # shutdown (helps with cache thrashing when changing branches).
 build --disk_cache=~/.cache/bazel-disk-cache
