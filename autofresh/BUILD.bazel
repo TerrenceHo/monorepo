@@ -4,9 +4,12 @@ go_library(
     name = "autofresh",
     srcs = [
         "app.go",
-        "config.go",
         "logger.go",
     ],
     importpath = "github.com/TerrenceHo/monorepo/autofresh",
     visibility = ["//visibility:public"],
+    deps = [
+        "//autofresh/watcher",
+        "//utils-go/stackerrors",
+    ],
 )

@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "path",
+    srcs = ["expanduser.go"],
+    importpath = "github.com/TerrenceHo/monorepo/utils-go/path",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "path_test",
+    size = "small",
+    srcs = ["exapenduser_test.go"],
+    embed = [":path"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)

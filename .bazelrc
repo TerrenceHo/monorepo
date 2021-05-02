@@ -21,6 +21,9 @@ build --nolegacy_external_runfiles
 build --incompatible_strict_action_env
 run --incompatible_strict_action_env
 
+# Add certain environment variables to bazel sandbox.
+build --action_env=HOME
+
 # Avoid using random headers on a machine that can interfere with Bazel's C++
 # toolchains
 build --strict_system_includes
@@ -38,6 +41,9 @@ test --test_verbose_timeout_warnings
 
 # show test error outputs
 test --test_output=errors
+
+# Add certain environment variables to bazel sandbox.
+test --action_env=HOME
 
 # show the test summary. Show detailed information about failed tests
 # test --test_summary=detailed

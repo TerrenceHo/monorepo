@@ -20,7 +20,7 @@ func generateConfig(t *testing.T, args []string) autofresh.Config {
 			}
 			t.Fatal("load config failed")
 		}
-		c.Cmd = args
+		c = purifyConfig(c, args)
 	}
 	cmd := rootCmd(testServe)
 	cmd.SetArgs(args)
@@ -38,17 +38,18 @@ func TestRootCmdConfig(t *testing.T) {
 		{
 			args: []string{
 				"--watch", "/User",
-				"-w", "~/go",
+				"-w", "/go",
 				"--hidebanner",
-				"-w", "github.com/monorepo",
+				"-w", "/github.com/monorepo",
 				"-e", "go,js,ts",
 				"--", "bash", "--help",
 			},
 			want: autofresh.Config{
-				Cmd:        []string{"bash", "--help"},
+				Cmd:        "bash",
+				Args:       []string{"--help"},
 				Extensions: []string{"go", "js", "ts"},
 				HideBanner: true,
-				Watch:      []string{"/User", "~/go", "github.com/monorepo"},
+				Watch:      []string{"/User", "/go", "/github.com/monorepo"},
 			},
 		},
 	}
