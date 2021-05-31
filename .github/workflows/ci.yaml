@@ -9,7 +9,7 @@ jobs:
     steps:
       # Caches and restores bazelisk download directory, the bazel build directory.
       - name: Cache bazel
-        uses: actions/cache@v2.1.5
+        uses: actions/cache@v2.1.6
         env:
           cache-name: bazel-cache
         with:
