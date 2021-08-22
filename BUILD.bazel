@@ -5,7 +5,7 @@ gazelle(name = "gazelle")
 # Gazelle configration options
 # https://github.com/bazelbuild/bazel-gazelle#running-gazelle-with-bazel
 # gazelle:prefix github.com/TerrenceHo/monorepo
-# gazelle:build_file_name BUILD,BUILD.bazel
+# gazelle:build_file_name BUILD.bazel
 #
 # Exclusions
 # gazelle:exclude: */vendor
