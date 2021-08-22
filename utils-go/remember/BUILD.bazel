@@ -1,0 +1,20 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "remember",
+    srcs = ["remember.go"],
+    importpath = "github.com/TerrenceHo/monorepo/utils-go/remember",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//utils-go/random",
+        "//utils-go/stackerrors",
+    ],
+)
+
+go_test(
+    name = "remember_test",
+    size = "small",
+    srcs = ["remember_test.go"],
+    embed = [":remember"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
