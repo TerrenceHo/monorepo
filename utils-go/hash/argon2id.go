@@ -13,18 +13,19 @@ import (
 
 var (
 	ErrInvalidHash         = stackerrors.New("the encoded hash is not in the correct format")
+	ErrWrongHashAlgorithm  = stackerrors.New("the hashing algorithm is not correct")
 	ErrIncompatibleVersion = stackerrors.New("incompatible version of argon2")
 )
 
 // Argon2ID implements the Hasher interface. Underneath, it uses the Argon2ID
 // implementation to hash passwords and compare passwords.
 type Argon2ID struct {
-	memory      uint32
-	iterations  uint32
-	parallelism uint8
-	saltLength  uint32
-	keyLength   uint32
-	version     int
+	memory      uint32 // memory in kibibytes, 64 * 1024 recommended
+	iterations  uint32 // number of passes, 3 recommended
+	parallelism uint8  // number of threads used by algorithm, 4 recommended
+	saltLength  uint32 // length of salt, 16 recommended
+	keyLength   uint32 // length of the generated hash, 16+ bytes recommended
+	version     int    // version of the argon2ID algorithm
 }
 
 func NewArgon2ID(memory, iterations uint32, parallelism uint8, saltLength, keyLength uint32) *Argon2ID {
@@ -95,6 +96,10 @@ func (a *Argon2ID) decodeHash(encodedHash string) (salt, hash []byte, err error)
 	vals := strings.Split(encodedHash, "$")
 	if len(vals) != 6 {
 		return nil, nil, ErrInvalidHash
+	}
+
+	if vals[1] != "argon2id" {
+		return nil, nil, ErrWrongHashAlgorithm
 	}
 
 	var version int

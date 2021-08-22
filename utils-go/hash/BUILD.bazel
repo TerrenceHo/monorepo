@@ -7,12 +7,15 @@ go_library(
     visibility = ["//visibility:public"],
     deps = [
         "//utils-go/random",
+        "//utils-go/stackerrors",
         "@org_golang_x_crypto//argon2",
     ],
 )
 
 go_test(
     name = "hash_test",
+    size = "small",
     srcs = ["argon2id_test.go"],
     embed = [":hash"],
+    deps = ["@com_github_stretchr_testify//assert"],
 )
