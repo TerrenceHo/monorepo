@@ -17,5 +17,8 @@ go_test(
     size = "small",
     srcs = ["argon2id_test.go"],
     embed = [":hash"],
-    deps = ["@com_github_stretchr_testify//assert"],
+    deps = [
+        "@com_github_stretchr_testify//assert",
+        "@org_golang_x_crypto//argon2",
+    ],
 )
