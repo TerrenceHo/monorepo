@@ -165,8 +165,8 @@ def fetch_go_deps():
     go_repository(
         name = "org_golang_x_crypto",
         importpath = "golang.org/x/crypto",
-        sum = "h1:VklqNMn3ovrHsnt90PveolxSbWFaJdECFbxSq0Mqo2M=",
-        version = "v0.0.0-20190308221718-c2843e01d9a2",
+        sum = "h1:HWj/xjIHfjYU5nVXpTM0s39J9CbLn7Cc5a7IC5rwsMQ=",
+        version = "v0.0.0-20210817164053-32db794688a5",
     )
     go_repository(
         name = "org_golang_x_exp",
@@ -201,8 +201,8 @@ def fetch_go_deps():
     go_repository(
         name = "org_golang_x_sys",
         importpath = "golang.org/x/sys",
-        sum = "h1:Bli41pIlzTzf3KEY06n+xnzK/BESIg2ze4Pgfh/aI8c=",
-        version = "v0.0.0-20210330210617-4fbd30eecc44",
+        sum = "h1:SrN+KX8Art/Sf4HNj6Zcz06G7VEz+7w9tdXTPOZ7+l4=",
+        version = "v0.0.0-20210615035016-665e8c7367d1",
     )
     go_repository(
         name = "org_golang_x_term",
