@@ -2,6 +2,9 @@
 # Settings for running builds #
 ###############################
 
+# Tell bazel to store all symlinks it creates .bazel/
+build --symlink_prefix=.bazel/
+
 # Cache action outputs on local disk so they persist across output_bae and bazel
 # shutdown (helps with cache thrashing when changing branches).
 build --disk_cache=~/.cache/bazel-disk-cache
@@ -26,6 +29,9 @@ build --strict_system_includes
 # files into the source tree themselves.
 build --incompatible_default_to_explicit_init_py
 
+# Prevent concurrent file changes from poisoning build cache
+build --experimental_guard_against_concurrent_changes
+
 ##############################
 # Settings for running tests #
 ##############################
@@ -34,10 +40,10 @@ build --incompatible_default_to_explicit_init_py
 test --test_verbose_timeout_warnings
 
 # show test error outputs
-test --test_output=errors
+build --test_output=errors
 
 # show the test summary. Show detailed information about failed tests
-# test --test_summary=detailed
+build --test_summary=detailed
 
 
 ############################
