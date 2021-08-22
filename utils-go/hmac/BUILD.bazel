@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "hmac",
+    srcs = ["hmac.go"],
+    importpath = "github.com/TerrenceHo/monorepo/utils-go/hmac",
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "hmac_test",
+    size = "small",
+    srcs = ["hmac_test.go"],
+    embed = [":hmac"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
