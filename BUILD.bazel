@@ -18,6 +18,10 @@ gazelle(name = "gazelle")
 # gazelle:go_naming_convention import
 # gazelle:go_naming_convention_external import
 
+# gazelle:map_kind go_binary go_binary //bazel/go:default.bzl
+# gazelle:map_kind go_library go_library //bazel/go:default.bzl
+# gazelle:map_kind go_test go_test //bazel/go:default.bzl
+
 # update_build_files is a convenience target. See
 # https://github.com/bazelbuild/bazel-gazelle#update-repos.
 gazelle(

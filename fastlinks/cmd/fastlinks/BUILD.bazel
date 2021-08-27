@@ -1,4 +1,4 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("//bazel/go:default.bzl", "go_binary", "go_image", "go_library", "go_test")
 
 go_library(
     name = "fastlinks_lib",
@@ -28,4 +28,17 @@ go_test(
         "@com_github_spf13_cobra//:cobra",
         "@com_github_stretchr_testify//assert",
     ],
+)
+
+go_image(
+    name = "fastlinks_image",
+    embed = [":fastlinks_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_image(
+    name = "fastlinks_image_debug",
+    base = "@distroless-static-debug//image",
+    embed = [":fastlinks_lib"],
+    visibility = ["//visibility:public"],
 )
