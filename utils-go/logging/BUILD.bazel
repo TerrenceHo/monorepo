@@ -1,0 +1,22 @@
+load("//bazel/go:default.bzl", "go_library", "go_test")
+
+go_library(
+    name = "logging",
+    srcs = [
+        "doc.go",
+        "logging.go",
+    ],
+    importpath = "github.com/TerrenceHo/monorepo/utils-go/logging",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@org_uber_go_zap//:zap",
+        "@org_uber_go_zap//zapcore",
+    ],
+)
+
+go_test(
+    name = "logging_test",
+    srcs = ["logging_test.go"],
+    embed = [":logging"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)
