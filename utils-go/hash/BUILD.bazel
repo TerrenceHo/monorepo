@@ -1,4 +1,4 @@
-load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+load("//bazel/go:default.bzl", "go_library", "go_test")
 
 go_library(
     name = "hash",
