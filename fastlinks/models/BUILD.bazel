@@ -1,0 +1,11 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "models",
+    srcs = [
+        "route.go",
+        "user.go",
+    ],
+    importpath = "github.com/TerrenceHo/monorepo/fastlinks/models",
+    visibility = ["//visibility:public"],
+)
