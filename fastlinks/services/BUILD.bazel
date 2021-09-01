@@ -2,7 +2,10 @@ load("//bazel/go:default.bzl", "go_library", "go_test")
 
 go_library(
     name = "services",
-    srcs = ["health.go"],
+    srcs = [
+        "health.go",
+        "routes.go",
+    ],
     importpath = "github.com/TerrenceHo/monorepo/fastlinks/services",
     visibility = ["//visibility:public"],
 )

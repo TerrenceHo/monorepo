@@ -4,6 +4,7 @@ import (
 	"os"
 	"sync"
 
+	"github.com/TerrenceHo/monorepo/utils-go/stackerrors"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -66,7 +67,10 @@ func ConfigureLogger(loggerType LoggerType) (Logger, error) {
 			zap.ErrorOutput(os.Stderr),
 		)
 	}
-	return logger, err
+	if err != nil {
+		return logger, stackerrors.Wrap(err, "configure logger failed")
+	}
+	return logger, nil
 }
 
 func Debug(msg string, fields ...zap.Field) {

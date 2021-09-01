@@ -31,8 +31,17 @@ func rootCmd(run func(cmd *cobra.Command, args []string)) *cobra.Command {
 
 	flags := mainCmd.Flags()
 
+	flags.String("env", "dev", "environment: test, dev, or prod")
 	flags.Bool("hidebanner", false, "hide banner")
-	flags.IntP("port", "p", 12345, "Serve directory files on localhost:<port>")
+	flags.String("host", "localhost", "hostserver on this hostname")
+	flags.StringP("port", "p", "12345", "host server on localhost:<port>")
+
+	flags.String("db.user", "fastlinks", "database user")
+	flags.String("db.password", "password", "database password")
+	flags.String("db.dbname", "fastlinks", "database name")
+	flags.String("db.port", "5432", "database port")
+	flags.String("db.host", "localhost", "database host")
+	flags.String("db.sslmode", "disable", "database sslmode")
 
 	return mainCmd
 }

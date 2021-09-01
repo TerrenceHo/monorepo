@@ -35,12 +35,48 @@ func TestConfig(t *testing.T) {
 	}
 	testcases := []testcase{
 		{
+			args: []string{},
+			want: fastlinks.Config{
+				Env:        "dev",
+				Hidebanner: false,
+				Host:       "localhost",
+				Port:       "12345",
+				DB: fastlinks.DBConfig{
+					User:     "fastlinks",
+					Password: "password",
+					DBName:   "fastlinks",
+					Port:     "5432",
+					Host:     "localhost",
+					SSLMode:  "disable",
+				},
+			},
+		},
+		{
 			args: []string{
+				"--env=prod",
 				"--hidebanner",
+				"--host=google.com",
+				"--port=5555",
+				"--db.user=user",
+				"--db.password=newpassword",
+				"--db.dbname=newdb",
+				"--db.port=6666",
+				"--db.host=newhost.com",
+				"--db.sslmode=verify-full",
 			},
 			want: fastlinks.Config{
+				Env:        "prod",
 				Hidebanner: true,
-				Port:       12345,
+				Host:       "google.com",
+				Port:       "5555",
+				DB: fastlinks.DBConfig{
+					User:     "user",
+					Password: "newpassword",
+					DBName:   "newdb",
+					Port:     "6666",
+					Host:     "newhost.com",
+					SSLMode:  "verify-full",
+				},
 			},
 		},
 	}

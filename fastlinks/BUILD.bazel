@@ -1,4 +1,4 @@
-load("//bazel/go:default.bzl", "go_library")
+load("//bazel/go:default.bzl", "go_library", "go_test")
 
 go_library(
     name = "fastlinks",
@@ -8,7 +8,20 @@ go_library(
     deps = [
         "//fastlinks/adapters/http",
         "//fastlinks/services",
+        "//fastlinks/stores/postgresql",
+        "//utils-go/logging",
         "@com_github_labstack_echo_v4//:echo",
         "@com_github_labstack_echo_v4//middleware",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_test(
+    name = "fastlinks_test",
+    srcs = ["app_test.go"],
+    embed = [":fastlinks"],
+    deps = [
+        "//utils-go/logging",
+        "@com_github_stretchr_testify//assert",
     ],
 )
