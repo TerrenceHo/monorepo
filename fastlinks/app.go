@@ -6,31 +6,78 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
-	"strconv"
 	"time"
 
 	server "github.com/TerrenceHo/monorepo/fastlinks/adapters/http"
 	"github.com/TerrenceHo/monorepo/fastlinks/services"
+	"github.com/TerrenceHo/monorepo/fastlinks/stores/postgresql"
+	"github.com/TerrenceHo/monorepo/utils-go/logging"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	"go.uber.org/zap"
 )
 
 type Config struct {
 	Hidebanner bool
-	Port       int
+	Env        string
+	Port       string
+	Host       string
+	DB         DBConfig
+}
+
+type DBConfig struct {
+	User     string
+	Password string
+	DBName   string
+	Port     string
+	Host     string
+	SSLMode  string
 }
 
 func Start(conf Config) {
+	// Instantiate logger
+	logger, err := logging.ConfigureLogger(loggerType(conf.Env))
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "failed to instantiate logger: %v", err)
+		os.Exit(1)
+	}
+	logging.SetGlobalLogger(logger)
 
-	healthService := services.NewHealthService()
+	// Instantiate database connections
+	db, err := postgresql.NewConnection(
+		conf.DB.User,
+		conf.DB.Password,
+		conf.DB.DBName,
+		conf.DB.Port,
+		conf.DB.Host,
+		conf.DB.SSLMode,
+	)
+	defer db.Close()
+	if err != nil {
+		logging.Fatal(
+			"failed to connect to database",
+			zap.Error(err),
+		)
+	}
 
-	app := initServer(conf)
+	// create stores
+	routesStore := postgresql.NewRoutesStore(db)
 
+	// create services
+	healthService := services.NewHealthService(routesStore)
+	routesService := services.NewRoutesService(routesStore)
+
+	// create http controllers
 	rootController := server.NewRootController(healthService)
+	routesController := server.NewRoutesController(routesService, healthService)
+
+	// start servers and attach http routes to server
+	app := initServer(conf)
 	rootController.Mount(app.Group(""))
+	routesController.Mount(app.Group("routes"))
 
 	go func() {
-		if err := app.Start(":" + strconv.Itoa(conf.Port)); err != http.ErrServerClosed {
+		if err := app.Start(":" + conf.Port); err != http.ErrServerClosed {
 			app.Logger.Fatal("Shutting down the server.")
 		}
 	}()
@@ -63,4 +110,17 @@ func initServer(c Config) *echo.Echo {
 	}))
 
 	return app
+}
+
+func loggerType(env string) logging.LoggerType {
+	switch env {
+	case "dev":
+		return logging.DevLogger
+	case "prod":
+		return logging.ProdLogger
+	case "test":
+		return logging.TestLogger
+	default:
+		return logging.TestLogger
+	}
 }

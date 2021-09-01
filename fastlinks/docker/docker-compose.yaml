@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  db:
+    container_name: fastlinks_db
+    environment:
+      POSTGRES_DB: fastlinks
+      POSTGRES_USER: fastlinks
+      POSTGRES_PASSWORD: password
+    image: postgres:13.4
+    ports:
+      - "5432:5432"

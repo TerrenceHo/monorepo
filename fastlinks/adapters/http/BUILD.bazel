@@ -2,7 +2,10 @@ load("//bazel/go:default.bzl", "go_library", "go_test")
 
 go_library(
     name = "http",
-    srcs = ["root.go"],
+    srcs = [
+        "root.go",
+        "routes.go",
+    ],
     importpath = "github.com/TerrenceHo/monorepo/fastlinks/adapters/http",
     visibility = ["//visibility:public"],
     deps = [
