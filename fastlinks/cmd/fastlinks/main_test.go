@@ -42,6 +42,7 @@ func TestConfig(t *testing.T) {
 				Host:       "localhost",
 				Port:       "12345",
 				DB: fastlinks.DBConfig{
+					Engine:   "postgres",
 					User:     "fastlinks",
 					Password: "password",
 					DBName:   "fastlinks",
@@ -57,6 +58,7 @@ func TestConfig(t *testing.T) {
 				"--hidebanner",
 				"--host=google.com",
 				"--port=5555",
+				"--db.engine=mysql",
 				"--db.user=user",
 				"--db.password=newpassword",
 				"--db.dbname=newdb",
@@ -70,6 +72,7 @@ func TestConfig(t *testing.T) {
 				Host:       "google.com",
 				Port:       "5555",
 				DB: fastlinks.DBConfig{
+					Engine:   "mysql",
 					User:     "user",
 					Password: "newpassword",
 					DBName:   "newdb",

@@ -1,12 +1,14 @@
 package postgresql
 
-import "github.com/jmoiron/sqlx"
+import (
+	"github.com/TerrenceHo/monorepo/utils-go/sqldb"
+)
 
 type RoutesStore struct {
-	db *sqlx.DB
+	db *sqldb.DB
 }
 
-func NewRoutesStore(db *sqlx.DB) *RoutesStore {
+func NewRoutesStore(db *sqldb.DB) *RoutesStore {
 	return &RoutesStore{
 		db: db,
 	}

@@ -1,0 +1,13 @@
+load("//bazel/go:default.bzl", "go_library")
+
+go_library(
+    name = "sqldb",
+    srcs = ["db.go"],
+    importpath = "github.com/TerrenceHo/monorepo/utils-go/sqldb",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//utils-go/stackerrors",
+        "@com_github_jmoiron_sqlx//:sqlx",
+        "@com_github_lib_pq//:pq",
+    ],
+)
