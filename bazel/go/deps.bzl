@@ -518,8 +518,8 @@ def fetch_go_deps():
     go_repository(
         name = "com_github_miekg_dns",
         importpath = "github.com/miekg/dns",
-        sum = "h1:9jZdLNd/P4+SfEJ0TNyxYpsK8N4GtfylBLqtbYN1sbA=",
-        version = "v1.0.14",
+        sum = "h1:g5fRIhm9nx7g8osrAvgb16QJfmyMsyOCb+J7LSv+Qzk=",
+        version = "v1.1.45",
     )
     go_repository(
         name = "com_github_mitchellh_cli",
@@ -732,8 +732,8 @@ def fetch_go_deps():
     go_repository(
         name = "com_github_yuin_goldmark",
         importpath = "github.com/yuin/goldmark",
-        sum = "h1:dPmz1Snjq0kmkz159iL7S6WzdahUTHnHB5M56WFVifs=",
-        version = "v1.3.5",
+        sum = "h1:/vn0k+RBvwlxEmP5E7SZMqNxPhfMVFEJiykr15/0XKM=",
+        version = "v1.4.1",
     )
 
     go_repository(
@@ -917,15 +917,15 @@ def fetch_go_deps():
     go_repository(
         name = "org_golang_x_mod",
         importpath = "golang.org/x/mod",
-        sum = "h1:Gz96sIWK3OalVv/I/qNygP42zyoKp3xptRVCWRFEBvo=",
-        version = "v0.4.2",
+        sum = "h1:OJxoQ/rynoF0dcCdI7cLPktw/hR2cueqYfjm43oqK38=",
+        version = "v0.5.1",
     )
 
     go_repository(
         name = "org_golang_x_net",
         importpath = "golang.org/x/net",
-        sum = "h1:4nGaVu0QrbjT/AK2PRLuQfQuh6DJve+pELhqTdAj3x0=",
-        version = "v0.0.0-20210405180319-a5a99cb37ef4",
+        sum = "h1:hEYJvxw1lSnWIl8X9ofsYMklzaDs90JI2az5YMd4fPM=",
+        version = "v0.0.0-20211216030914-fe4d6282115f",
     )
     go_repository(
         name = "org_golang_x_oauth2",
@@ -942,8 +942,8 @@ def fetch_go_deps():
     go_repository(
         name = "org_golang_x_sys",
         importpath = "golang.org/x/sys",
-        sum = "h1:SrN+KX8Art/Sf4HNj6Zcz06G7VEz+7w9tdXTPOZ7+l4=",
-        version = "v0.0.0-20210615035016-665e8c7367d1",
+        sum = "h1:fLOSk5Q00efkSvAm+4xcoXD+RRmLmmulPn5I3Y9F2EM=",
+        version = "v0.0.0-20211216021012-1d35b9e2eb4e",
     )
     go_repository(
         name = "org_golang_x_term",
@@ -954,8 +954,8 @@ def fetch_go_deps():
     go_repository(
         name = "org_golang_x_text",
         importpath = "golang.org/x/text",
-        sum = "h1:aRYxNxv6iGQlyVaZmk6ZgYEDa+Jg18DxebPSrd6bg1M=",
-        version = "v0.3.6",
+        sum = "h1:olpwvP2KacW1ZWvsR7uQhoyTYvKAupfQrRGBFM352Gk=",
+        version = "v0.3.7",
     )
     go_repository(
         name = "org_golang_x_time",
@@ -967,8 +967,8 @@ def fetch_go_deps():
     go_repository(
         name = "org_golang_x_tools",
         importpath = "golang.org/x/tools",
-        sum = "h1:kRBLX7v7Af8W7Gdbbc908OJcdgtK8bOz9Uaj8/F1ACA=",
-        version = "v0.1.2",
+        sum = "h1:P1HhGGuLW4aAclzjtmJdf0mJOjVUZUzOTqkAkWL+l6w=",
+        version = "v0.1.8",
     )
     go_repository(
         name = "org_golang_x_xerrors",
