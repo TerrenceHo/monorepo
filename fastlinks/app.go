@@ -12,6 +12,7 @@ import (
 	"github.com/TerrenceHo/monorepo/fastlinks/services"
 	"github.com/TerrenceHo/monorepo/fastlinks/stores/postgresql"
 	"github.com/TerrenceHo/monorepo/utils-go/logging"
+	"github.com/TerrenceHo/monorepo/utils-go/sqldb"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"go.uber.org/zap"
@@ -26,6 +27,7 @@ type Config struct {
 }
 
 type DBConfig struct {
+	Engine   string
 	User     string
 	Password string
 	DBName   string
@@ -44,7 +46,8 @@ func Start(conf Config) {
 	logging.SetGlobalLogger(logger)
 
 	// Instantiate database connections
-	db, err := postgresql.NewConnection(
+	db, err := sqldb.NewConnection(
+		conf.DB.Engine,
 		conf.DB.User,
 		conf.DB.Password,
 		conf.DB.DBName,
@@ -59,9 +62,10 @@ func Start(conf Config) {
 			zap.Error(err),
 		)
 	}
+	sql_db := sqldb.NewSQLDB(db)
 
 	// create stores
-	routesStore := postgresql.NewRoutesStore(db)
+	routesStore := postgresql.NewRoutesStore(sql_db)
 
 	// create services
 	healthService := services.NewHealthService(routesStore)

@@ -36,6 +36,7 @@ func rootCmd(run func(cmd *cobra.Command, args []string)) *cobra.Command {
 	flags.String("host", "localhost", "hostserver on this hostname")
 	flags.StringP("port", "p", "12345", "host server on localhost:<port>")
 
+	flags.String("db.engine", "postgres", "database engine")
 	flags.String("db.user", "fastlinks", "database user")
 	flags.String("db.password", "password", "database password")
 	flags.String("db.dbname", "fastlinks", "database name")

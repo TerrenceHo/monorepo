@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
+	github.com/golang-migrate/migrate/v4 v4.14.1 // indirect
 	github.com/google/uuid v1.2.0 // indirect
 	github.com/jmoiron/sqlx v1.3.4 // indirect
 	github.com/labstack/echo/v4 v4.5.0 // indirect

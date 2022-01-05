@@ -1,0 +1,23 @@
+load("//bazel/go:default.bzl", "go_library", "go_test")
+
+go_library(
+    name = "sqldb",
+    srcs = ["db.go"],
+    importpath = "github.com/TerrenceHo/monorepo/utils-go/sqldb",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//utils-go/stackerrors",
+        "@com_github_golang_migrate_migrate_v4//:migrate",
+        "@com_github_golang_migrate_migrate_v4//database/postgres",
+        "@com_github_golang_migrate_migrate_v4//source/file",
+        "@com_github_jmoiron_sqlx//:sqlx",
+        "@com_github_lib_pq//:pq",
+    ],
+)
+
+go_test(
+    name = "sqldb_test",
+    srcs = ["db_test.go"],
+    embed = [":sqldb"],
+    deps = ["@com_github_stretchr_testify//assert"],
+)

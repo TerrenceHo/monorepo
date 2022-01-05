@@ -10,6 +10,7 @@ go_library(
         "//fastlinks/services",
         "//fastlinks/stores/postgresql",
         "//utils-go/logging",
+        "//utils-go/sqldb",
         "@com_github_labstack_echo_v4//:echo",
         "@com_github_labstack_echo_v4//middleware",
         "@org_uber_go_zap//:zap",
