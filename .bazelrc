@@ -5,7 +5,7 @@
 # Tell bazel to store all symlinks it creates .bazel/
 build --symlink_prefix=.bazel/
 
-# Cache action outputs on local disk so they persist across output_bae and bazel
+# Cache action outputs on local disk so they persist across output_base and bazel
 # shutdown (helps with cache thrashing when changing branches).
 build --disk_cache=~/.cache/bazel-disk-cache
 

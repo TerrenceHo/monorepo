@@ -8,11 +8,12 @@ gazelle(name = "gazelle")
 # gazelle:build_file_name BUILD.bazel
 #
 # Exclusions
-# gazelle:exclude: */vendor
-# gazelle:exclude: .bazel
-# gazelle:exclude: bazel-out
-# gazelle:exclude: **/node_modules
-# gazelle:exclude: third_party
+# gazelle:exclude */vendor
+# gazelle:exclude .bazel
+# gazelle:exclude bazel-out
+# gazelle:exclude **/node_modules
+# gazelle:exclude third_party
+# gazelle:exclude *_test.go
 #
 # Being explicit about naming conventions
 # gazelle:go_naming_convention import
