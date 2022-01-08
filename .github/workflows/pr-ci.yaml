@@ -1,0 +1,33 @@
+name: Pull Request CI
+
+on: 
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    # virtual environments: https://github.com/actions/virtual-environments
+    runs-on: ubuntu-20.04
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, which is the CWD for
+      # the rest of the steps
+      - uses: actions/checkout@v2
+
+      # Caches and restores bazelisk download directory, the bazel build directory.
+      - name: Bazel Tree and Disk Cache
+        uses: TerrenceHo/cache-always@v0.0.1
+        env:
+          cache-name: bazel-cache
+        with:
+          path: |
+            /home/runner/.cache/bazel
+            /home/runner/.cache/bazel-disk-cache
+          key: bazel-${{ runner.os }}-${{ env.cache-name }}-${{ github.head_ref }}-v0.3.1
+          restore-keys: |
+            bazel-${{ runner.os }}-${{ env.cache-name }}-v0.3.1
+
+      # build
+      - name: Tests and builds the code
+        run: bazel coverage //...
