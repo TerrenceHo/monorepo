@@ -150,9 +150,9 @@ Future work:
 
 ## Cache
 
-TODO: This costs money, but could be done cheaply; either in some GCS storage
-bucket or just run [`bazel-remote`](https://github.com/buchgr/bazel-remote) on
-some machine somewhere.
+Cache for CI is saved on github actions using `@TerrenceHo/cache-always`, which
+does not check to see if a cache hit was used during saving of caches, which
+allows the bazel cache to always be up to date.
 
 ## Remote Execution
 

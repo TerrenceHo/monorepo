@@ -1,9 +1,6 @@
-name: CI
+name: Master CI
 
 on: 
-  pull_request:
-    branches:
-      - master
   push:
     branches:
       - master
