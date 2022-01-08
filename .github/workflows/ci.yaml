@@ -27,7 +27,7 @@ jobs:
           path: |
             /home/runner/.cache/bazel
             /home/runner/.cache/bazel-disk-cache
-          key: bazel-${{ runner.os }}-${{ env.cache-name }}-v0.3.0
+          key: bazel-${{ runner.os }}-${{ env.cache-name }}-v0.3.1
 
       # build
       - name: Tests and builds the code
