@@ -1,4 +1,4 @@
-load("//bazel/go:default.bzl", "go_library")
+load("//bazel/go:default.bzl", "go_library", "go_test")
 
 go_library(
     name = "models",
@@ -8,4 +8,13 @@ go_library(
     ],
     importpath = "github.com/TerrenceHo/monorepo/fastlinks/models",
     visibility = ["//visibility:public"],
+    deps = ["//utils-go/stackerrors"],
+)
+
+go_test(
+    name = "models_test",
+    size = "small",
+    srcs = ["route_test.go"],
+    embed = [":models"],
+    deps = ["@com_github_stretchr_testify//assert"],
 )

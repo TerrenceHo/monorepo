@@ -44,24 +44,24 @@ func Start(conf Config) {
 	logging.SetGlobalLogger(logger)
 
 	// Instantiate database connections
-	db, err := postgresql.NewConnection(
-		conf.DB.User,
-		conf.DB.Password,
-		conf.DB.DBName,
-		conf.DB.Port,
-		conf.DB.Host,
-		conf.DB.SSLMode,
-	)
-	defer db.Close()
-	if err != nil {
-		logging.Fatal(
-			"failed to connect to database",
-			zap.Error(err),
-		)
-	}
+	// db, err := postgresql.NewConnection(
+	// 	conf.DB.User,
+	// 	conf.DB.Password,
+	// 	conf.DB.DBName,
+	// 	conf.DB.Port,
+	// 	conf.DB.Host,
+	// 	conf.DB.SSLMode,
+	// )
+	// defer db.Close()
+	// if err != nil {
+	// 	logging.Fatal(
+	// 		"failed to connect to database",
+	// 		zap.Error(err),
+	// 	)
+	// }
 
 	// create stores
-	routesStore := postgresql.NewRoutesStore(db)
+	routesStore := postgresql.NewRoutesStore(nil)
 
 	// create services
 	healthService := services.NewHealthService(routesStore)
@@ -78,7 +78,7 @@ func Start(conf Config) {
 
 	go func() {
 		if err := app.Start(":" + conf.Port); err != http.ErrServerClosed {
-			app.Logger.Fatal("Shutting down the server.")
+            logging.Fatal("failed to start server", zap.Error(err))
 		}
 	}()
 
