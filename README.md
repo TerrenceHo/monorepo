@@ -129,8 +129,6 @@ TODO: fill this out once `docker_rules` has been implemented.
 
 ## CI
 
-The monorepo uses GitHub Actions as a CI mechanism. When the Action runs,
-
 Currently, no remote cache is available to speed up execution of the dependency
 graph; Bazel has to download and rebuild many artifacts it has built before,
 even though Bazel was optimized for incremental rebuilds. GitHub Actions do have
