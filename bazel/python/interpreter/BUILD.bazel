@@ -1,21 +1,27 @@
-load("@rules_python//python:defs.bzl", "py_runtime_pair")
+# load("@rules_python//python:defs.bzl", "py_runtime_pair")
 
-py_runtime(
-    name = "python3_runtime",
-    files = ["@python3_interpreter//:files"],
-    interpreter = "@python3_interpreter//:bazel_install/bin/python3",
-    python_version = "PY3",
-    visibility = ["//visibility:public"],
-)
+# NOTE: Legacy way of importing python runtime into Bazel. The new way uses Nix
+# packages to bundle Python. See the following:
+# - https://www.tweag.io/blog/2018-03-15-bazel-nix/
+# - https://github.com/jvolkman/bazel-nix-example
+# - https://github.com/tweag/rules_nixpkgs#nixpkgs_python_configure
 
-py_runtime_pair(
-    name = "monorepo_py_runtime_pair",
-    py2_runtime = None,
-    py3_runtime = ":python3_runtime",
-)
+# py_runtime(
+#     name = "python3_runtime",
+#     files = ["@python3_interpreter//:files"],
+#     interpreter = "@python3_interpreter//:bazel_install/bin/python3",
+#     python_version = "PY3",
+#     visibility = ["//visibility:public"],
+# )
 
-toolchain(
-    name = "monorepo_py_toolchain",
-    toolchain = ":monorepo_py_runtime_pair",
-    toolchain_type = "@bazel_tools//tools/python:toolchain_type",
-)
+# py_runtime_pair(
+#     name = "monorepo_py_runtime_pair",
+#     py2_runtime = None,
+#     py3_runtime = ":python3_runtime",
+# )
+
+# toolchain(
+#     name = "monorepo_py_toolchain",
+#     toolchain = ":monorepo_py_runtime_pair",
+#     toolchain_type = "@bazel_tools//tools/python:toolchain_type",
+# )

@@ -1,13 +1,16 @@
 diff --git a/internal/gazelle.bash.in b/internal/gazelle.bash.in
 --- a/internal/gazelle.bash.in
 +++ b/internal/gazelle.bash.in
-@@ -45,6 +45,9 @@ function find_runfile {
- # use the SDK used by the workspace in case the Go SDK is not installed
- # on the host system or is a different version.
- function set_goroot {
-+  # when --no_legacy_external_runfiles is set, gazelle cannot find GOROOT.
-+  # Replace 'external' with '../' solves this.
-+  GOTOOL=${GOTOOL/#external/..}
-   local gotool=$(find_runfile "$GOTOOL")
-   if [ -z "$gotool" ]; then
-     echo "$0: warning: could not locate GOROOT used by rules_go" >&2
+@@ -32,9 +32,9 @@
+     readlink "$runfile"
+     return
+   fi
+-  runfile=$(echo "$runfile" | sed -e 's!^\(\.\./\|external/\)!!')
+-  if grep -q "^$runfile" MANIFEST; then
+-    grep "^$runfile" MANIFEST | head -n 1 | cut -d' ' -f2
++  runfile=${runfile#external/}
++  if grep -q "^$runfile" "$0.runfiles_manifest"; then
++    grep "^$runfile" "$0.runfiles_manifest" | head -n 1 | cut -d' ' -f2
+     return
+   fi
+   # printing nothing indicates failure
