@@ -5,67 +5,39 @@ def fetch_deps():
     http_archive(
         name = "bazel_skylib",
         urls = [
-            "https://github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
-            "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.0.3/bazel-skylib-1.0.3.tar.gz",
+            "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.2.1/bazel-skylib-1.2.1.tar.gz",
+            "https://github.com/bazelbuild/bazel-skylib/releases/download/1.2.1/bazel-skylib-1.2.1.tar.gz",
         ],
-        sha256 = "1c531376ac7e5a180e0237938a2536de0c54d93f5c278634818e0efc952dd56c",
+        sha256 = "f7be3474d42aae265405a592bb7da8e171919d74c16f082a5457840f06054728",
     )
 
     http_archive(
         name = "io_bazel_rules_go",
-        sha256 = "69de5c704a05ff37862f7e0f5534d4f479418afc21806c887db544a316f3cb6b",
+        sha256 = "685052b498b6ddfe562ca7a97736741d87916fe536623afb7da2824c0211c369",
         urls = [
-            "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.27.0/rules_go-v0.27.0.tar.gz",
-            "https://github.com/bazelbuild/rules_go/releases/download/v0.27.0/rules_go-v0.27.0.tar.gz",
+            "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.33.0/rules_go-v0.33.0.zip",
+            "https://github.com/bazelbuild/rules_go/releases/download/v0.33.0/rules_go-v0.33.0.zip",
         ],
     )
 
     http_archive(
         name = "bazel_gazelle",
-        sha256 = "62ca106be173579c0a167deb23358fdfe71ffa1e4cfdddf5582af26520f1c66f",
-        patch_args = ["-p1"],
-        patches = ["//bazel/patches:gazelle.patch"],
+        sha256 = "5982e5463f171da99e3bdaeff8c0f48283a7a5f396ec5282910b9e8a49c0dd7e",
         urls = [
-            "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.23.0/bazel-gazelle-v0.23.0.tar.gz",
-            "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.23.0/bazel-gazelle-v0.23.0.tar.gz",
+            "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.25.0/bazel-gazelle-v0.25.0.tar.gz",
+            "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.25.0/bazel-gazelle-v0.25.0.tar.gz",
         ],
-    )
-
-    http_archive(
-        name = "rules_proto",
-        sha256 = "602e7161d9195e50246177e7c55b2f39950a9cf7366f74ed5f22fd45750cd208",
-        strip_prefix = "rules_proto-97d8af4dc474595af3900dd85cb3a29ad28cc313",
-        urls = [
-            "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
-            "https://github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
-        ],
-    )
-
-    http_archive(
-        name = "com_github_grpc_grpc",
-        urls = [
-            "https://github.com/grpc/grpc/archive/3e53dbe8213137d2c731ecd4d88ebd2948941d75.tar.gz",
-        ],
-        sha256 = "89bab58f7bd36f2826b0bde92ea5668324642fe281d636dd18025354586cb764",
-        strip_prefix = "grpc-3e53dbe8213137d2c731ecd4d88ebd2948941d75",
-    )
-
-    git_repository(
-        name = "com_google_protobuf",
-        commit = "878be3569eaa552d45f50406b410c80da5e70447",
-        remote = "https://github.com/protocolbuffers/protobuf",
-        shallow_since = "1617386816 -0700",
     )
 
     http_archive(
         name = "rules_python",
-        url = "https://github.com/bazelbuild/rules_python/releases/download/0.1.0/rules_python-0.1.0.tar.gz",
-        sha256 = "b6d46438523a3ec0f3cead544190ee13223a52f6a6765a29eae7b7cc24cc83a0",
+        sha256 = "5fa3c738d33acca3b97622a13a741129f67ef43f5fdfcec63b29374cc0574c29",
+        strip_prefix = "rules_python-0.9.0",
+        url = "https://github.com/bazelbuild/rules_python/archive/refs/tags/0.9.0.tar.gz",
     )
 
     http_archive(
         name = "io_bazel_rules_docker",
-        sha256 = "5d31ad261b9582515ff52126bf53b954526547a3e26f6c25a9d64c48a31e45ac",
-        strip_prefix = "rules_docker-0.18.0",
-        urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.18.0/rules_docker-v0.18.0.tar.gz"],
+        sha256 = "b1e80761a8a8243d03ebca8845e9cc1ba6c82ce7c5179ce2b295cd36f7e394bf",
+        urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.25.0/rules_docker-v0.25.0.tar.gz"],
     )

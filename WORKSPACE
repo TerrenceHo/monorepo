@@ -17,7 +17,7 @@ load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_depe
 
 go_rules_dependencies()
 
-go_register_toolchains(version = "1.17")
+go_register_toolchains(version = "1.18.3")
 
 load("@io_bazel_rules_go//extras:embed_data_deps.bzl", "go_embed_data_dependencies")
 
@@ -46,28 +46,6 @@ fetch_python_deps()
 register_toolchains(
     "//bazel/python/interpreter:monorepo_py_toolchain",
 )
-
-##### Protobuf Dependencies
-
-load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
-
-rules_proto_dependencies()
-
-rules_proto_toolchains()
-
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-
-protobuf_deps()
-
-##### gRPC Dependencies
-
-load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps")
-
-grpc_deps()
-
-load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
-
-grpc_extra_deps()
 
 ##### Docker Dependencies
 load(
