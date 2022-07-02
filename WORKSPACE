@@ -11,24 +11,6 @@ load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 
 bazel_skylib_workspace()
 
-##### Nix Dependencies
-
-load("@io_tweag_rules_nixpkgs//nixpkgs:repositories.bzl", "rules_nixpkgs_dependencies")
-
-rules_nixpkgs_dependencies()
-
-load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl", "nixpkgs_git_repository", "nixpkgs_python_configure")
-
-nixpkgs_git_repository(
-    name = "nixpkgs",
-    revision = "21.05",  # Any tag or commit hash
-    sha256 = "",  # optional sha to verify package integrity!
-)
-
-nixpkgs_python_configure(
-    repository = "@nixpkgs//:default.nix",
-)
-
 ##### Go Dependencies
 
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
@@ -52,9 +34,27 @@ gazelle_dependencies()
 
 ##### Python Dependencies
 
-load("//bazel/python:deps.bzl", "fetch_python_deps")
+load("@rules_python//python:repositories.bzl", "python_register_toolchains")
 
-fetch_python_deps()
+python_register_toolchains(
+    name = "python3_10",
+    python_version = "3.10",
+)
+
+load("//bazel/python:rules.bzl", "pip_install_dependencies")
+
+# NOTE: Because `compile_pip_dependencies()` does not install its own
+# dependencies, this installs the work around for us.
+# Ref: https://github.com/bazelbuild/rules_python/issues/497
+pip_install_dependencies()
+
+load("//bazel/python:deps.bzl", "setup_pip_repositories")
+
+setup_pip_repositories()
+
+load("//bazel/python:load_pip_repositories.bzl", "load_pip_repositories")
+
+load_pip_repositories()
 
 ##### Docker Dependencies
 load(
