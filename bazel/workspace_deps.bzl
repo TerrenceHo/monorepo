@@ -44,10 +44,3 @@ def fetch_deps():
         sha256 = "b1e80761a8a8243d03ebca8845e9cc1ba6c82ce7c5179ce2b295cd36f7e394bf",
         urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.25.0/rules_docker-v0.25.0.tar.gz"],
     )
-
-    http_archive(
-        name = "io_tweag_rules_nixpkgs",
-        sha256 = "7aee35c95251c1751e765f7da09c3bb096d41e6d6dca3c72544781a5573be4aa",
-        strip_prefix = "rules_nixpkgs-0.8.0",
-        urls = ["https://github.com/tweag/rules_nixpkgs/archive/v0.8.0.tar.gz"],
-    )

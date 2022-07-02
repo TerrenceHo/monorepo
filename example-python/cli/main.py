@@ -5,7 +5,7 @@ import sys
 from flask import Flask
 
 # importing local dependencies with py_library
-from example_python.example.lib import cmd
+from example.lib import cmd
 
 app = Flask(__name__)
 

@@ -1,0 +1,10 @@
+load("//bazel/python:rules.bzl", "compile_pip_requirements")
+
+# Generates:
+# - //example_python:pip_compile.update target
+# - //example_python:pip_compile_test test
+compile_pip_requirements(
+    name = "pip_compile",
+    requirements_in = "requirements.txt",
+    requirements_txt = "requirements.txt.lock",
+)
