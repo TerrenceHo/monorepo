@@ -1,8 +1,25 @@
-load("//bazel/python:rules.bzl", "py_library")
+load("//bazel/python:rules.bzl", "py_library", "py_test")
 
 py_library(
     name = "example",
-    srcs = glob(["*.py"]),
-    imports = ["./*"],
-    visibility = ["//visibility:public"],
+    srcs = [
+        "__init__.py",
+        "lib.py",
+    ],
+    imports = ["../.."],
+    visibility = ["//:__subpackages__"],
+)
+
+py_test(
+    name = "example_test",
+    srcs = [
+        "__test__.py",
+        "lib_test.py",
+    ],
+    imports = [".."],
+    main = "__test__.py",
+    deps = [
+        ":example",
+        "@example-python_pip_deps_pytest//:pkg",
+    ],
 )

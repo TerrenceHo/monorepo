@@ -28,6 +28,7 @@ load("//bazel/go:deps.bzl", "fetch_go_deps")
 # gazelle:repository_macro bazel/go/deps.bzl%fetch_go_deps
 fetch_go_deps()
 
+## Golang Gazelle Setup
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
 
 gazelle_dependencies()
@@ -41,7 +42,7 @@ python_register_toolchains(
     python_version = "3.10",
 )
 
-load("//bazel/python:rules.bzl", "pip_install_dependencies")
+load("@rules_python//python/pip_install:repositories.bzl", "pip_install_dependencies")
 
 # NOTE: Because `compile_pip_dependencies()` does not install its own
 # dependencies, this installs the work around for us.
@@ -55,6 +56,11 @@ setup_pip_repositories()
 load("//bazel/python:load_pip_repositories.bzl", "load_pip_repositories")
 
 load_pip_repositories()
+
+## Python Gazelle Setup
+load("@rules_python//gazelle:deps.bzl", _py_gazelle_deps = "gazelle_deps")
+
+_py_gazelle_deps()
 
 ##### Docker Dependencies
 load(
