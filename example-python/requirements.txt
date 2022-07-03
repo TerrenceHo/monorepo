@@ -1,2 +1,5 @@
 Flask==2.1.2
 importlib-metadata
+
+# test
+pytest==7.1.2
