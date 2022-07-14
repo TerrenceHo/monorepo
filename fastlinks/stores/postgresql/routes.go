@@ -13,7 +13,7 @@ func NewRoutesStore(db *sqlx.DB) *RoutesStore {
 }
 
 func (rs *RoutesStore) Name() string {
-	return "Routes Store"
+	return "Postgresql Routes Store"
 }
 
 func (rs *RoutesStore) Health() error {

@@ -1,0 +1,27 @@
+load("//bazel/go:default.bzl", "go_library", "go_test")
+
+go_library(
+    name = "bbolt",
+    srcs = [
+        "routes.go",
+        "stores.go",
+    ],
+    importpath = "github.com/TerrenceHo/monorepo/fastlinks/stores/bbolt",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//fastlinks/models",
+        "//utils-go/stackerrors",
+        "@io_etcd_go_bbolt//:bbolt",
+    ],
+)
+
+go_test(
+    name = "bbolt_test",
+    srcs = ["routes_test.go"],
+    embed = [":bbolt"],
+    deps = [
+        "//fastlinks/models",
+        "@com_github_stretchr_testify//assert",
+        "@io_etcd_go_bbolt//:bbolt",
+    ],
+)
