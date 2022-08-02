@@ -44,3 +44,10 @@ def fetch_deps():
         sha256 = "b1e80761a8a8243d03ebca8845e9cc1ba6c82ce7c5179ce2b295cd36f7e394bf",
         urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.25.0/rules_docker-v0.25.0.tar.gz"],
     )
+
+    git_repository(
+        name = "com_github_ash2k_bazel_tools",
+        commit = "6e6c3717bb879f27d473a80fe8a43f2cc0e25298",
+        remote = "https://github.com/ash2k/bazel-tools.git",
+        shallow_since = "1655981442 +1000",
+    )

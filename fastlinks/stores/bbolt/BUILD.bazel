@@ -21,6 +21,7 @@ go_test(
     embed = [":bbolt"],
     deps = [
         "//fastlinks/models",
+        "//utils-go/stackerrors",
         "@com_github_stretchr_testify//assert",
         "@io_etcd_go_bbolt//:bbolt",
     ],

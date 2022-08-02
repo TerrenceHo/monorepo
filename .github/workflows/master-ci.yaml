@@ -27,5 +27,42 @@ jobs:
           key: bazel-${{ runner.os }}-${{ env.cache-name }}-v0.3.1
 
       # build
-      - name: Tests and builds the code
-        run: bazel coverage //...
+      - name: Run all builds
+        run: bazel build //...
+
+      # test
+      - name: Run all tests
+        run: bazel test //...
+
+  release:
+    # define a release job that requires the test job to succeed
+    needs: test
+    runs-on: ubuntu-20.04
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, which is the CWD for
+      # the rest of the steps
+      - uses: actions/checkout@v3
+
+      # Caches and restores bazelisk download directory, the bazel build directory.
+      - name: Bazel Tree and Disk Cache
+        uses: TerrenceHo/cache-always@v0.0.1
+        env:
+          cache-name: bazel-cache
+        with:
+          path: |
+            /home/runner/.cache/bazel
+            /home/runner/.cache/bazel-disk-cache
+          key: bazel-${{ runner.os }}-${{ env.cache-name }}-v0.3.1
+
+      # Docker Login
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Pushes all images
+      - name: Pushes all images
+        run: bazel run //:push_all

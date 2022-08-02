@@ -16,5 +16,8 @@ go_test(
     size = "small",
     srcs = ["route_test.go"],
     embed = [":models"],
-    deps = ["@com_github_stretchr_testify//assert"],
+    deps = [
+        "//utils-go/stackerrors",
+        "@com_github_stretchr_testify//assert",
+    ],
 )

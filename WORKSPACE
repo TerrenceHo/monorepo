@@ -64,6 +64,19 @@ _py_gazelle_deps()
 
 ##### Docker Dependencies
 load(
+    "@io_bazel_rules_docker//toolchains/docker:toolchain.bzl",
+    docker_toolchain_configure = "toolchain_configure",
+)
+
+docker_toolchain_configure(
+    name = "docker_config",
+    docker_flags = [
+        # "--tls",
+        "--log-level=info",
+    ],
+)
+
+load(
     "@io_bazel_rules_docker//repositories:repositories.bzl",
     container_repositories = "repositories",
 )
@@ -84,3 +97,9 @@ _go_image_repos()
 load("//bazel/containers:images.bzl", "fetch_images")
 
 fetch_images()
+
+##### Extra Tool Setup
+
+load("@com_github_ash2k_bazel_tools//multirun:deps.bzl", "multirun_dependencies")
+
+multirun_dependencies()

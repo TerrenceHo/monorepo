@@ -1,4 +1,5 @@
 load("//bazel/go:default.bzl", "go_binary", "go_image", "go_library", "go_test")
+load("//bazel/docker:rules.bzl", "container_push")
 
 go_library(
     name = "fastlinks_lib",
@@ -40,5 +41,12 @@ go_image(
     name = "fastlinks_image_debug",
     base = "@distroless-static-debug//image",
     embed = [":fastlinks_lib"],
+    visibility = ["//visibility:public"],
+)
+
+container_push(
+    name = "push",
+    image = ":fastlinks_image",
+    repository = "terrenceho/fastlinks",
     visibility = ["//visibility:public"],
 )

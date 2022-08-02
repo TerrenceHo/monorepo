@@ -32,6 +32,10 @@ build --incompatible_default_to_explicit_init_py
 # Prevent concurrent file changes from poisoning build cache
 build --experimental_guard_against_concurrent_changes
 
+# WORKSPACE status commands
+build --workspace_status_command=bazel/scripts/workspace_status_command.sh
+run --workspace_status_command=bazel/scripts/workspace_status_command.sh
+
 ##############################
 # Settings for running tests #
 ##############################
