@@ -29,5 +29,9 @@ jobs:
             bazel-${{ runner.os }}-${{ env.cache-name }}-v0.3.1
 
       # build
-      - name: Tests and builds the code
-        run: bazel coverage //...
+      - name: builds the code
+        run: bazel build //...
+
+      # test
+      - name: tests the code
+        run: bazel test //...

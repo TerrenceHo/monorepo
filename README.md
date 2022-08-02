@@ -25,6 +25,8 @@ supported:
 - Go
 - Python
 - Gazelle (for BUILD file generation)
+- [Docker](https://github.com/bazelbuild/rules_docker) for image building.
+
 
 Languages I would like to support in the future include:
 - C/C++ (Bazel has these toolchains built in, but including a C/C++ compiler in
@@ -39,7 +41,6 @@ Languages I would like to support in the future include:
 - [Haskell](https://github.com/tweag/rules_haskell)
 
 Tools I would like to support in the future include:
-- [Docker](https://github.com/bazelbuild/rules_docker) for image building.
 - [Protobuf](https://github.com/bazelbuild/rules_proto)
 - [gRPC](https://github.com/rules-proto-grpc/rules_proto_grpc)
 - [K8s](https://github.com/bazelbuild/rules_k8s)
