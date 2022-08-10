@@ -32,7 +32,7 @@ func rootCmd(run func(cmd *cobra.Command, args []string)) *cobra.Command {
 	flags := mainCmd.Flags()
 
 	flags.String("env", "dev", "environment: test, dev, or prod")
-	flags.Bool("hidebanner", false, "hide banner")
+	flags.Bool("hidebanner", false, "hide fastlinks banner")
 	flags.String("host", "localhost", "hostserver on this hostname")
 	flags.StringP("port", "p", "12345", "host server on localhost:<port>")
 
