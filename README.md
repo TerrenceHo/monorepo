@@ -143,10 +143,6 @@ code). An example Python project is `//bazel/example-python`.
 
 Future work:
 - `mypy` typechecking support
-- Gazelle support
-    - Gazelle has extensions for other languages. Adding a Python extension in
-      Gazelle would enable us to automatically generate BUILD files for
-      Python, saves on a lot of work.
 
 ### Docker
 

@@ -1,6 +1,9 @@
 package services
 
-type RoutesStore interface{}
+type RoutesStore interface {
+	Name() string
+	Health() error
+}
 
 type RoutesService struct {
 	store RoutesStore

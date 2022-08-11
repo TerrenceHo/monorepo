@@ -13,7 +13,9 @@ go_library(
     deps = [
         "//fastlinks/adapters/http",
         "//fastlinks/services",
+        "//fastlinks/stores/bbolt",
         "//fastlinks/stores/postgresql",
+        "//utils-go/file",
         "//utils-go/logging",
         "@com_github_labstack_echo_v4//:echo",
         "@com_github_labstack_echo_v4//middleware",

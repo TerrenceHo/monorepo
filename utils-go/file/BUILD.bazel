@@ -1,0 +1,9 @@
+load("//bazel/go:default.bzl", "go_library")
+
+go_library(
+    name = "file",
+    srcs = ["file.go"],
+    importpath = "github.com/TerrenceHo/monorepo/utils-go/file",
+    visibility = ["//visibility:public"],
+    deps = ["//utils-go/stackerrors"],
+)
