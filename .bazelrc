@@ -49,6 +49,10 @@ build --test_output=errors
 # show the test summary. Show detailed information about failed tests
 build --test_summary=detailed
 
+# inherit env vars to test
+build --action_env=HOME
+test --action_env=HOME
+
 
 ############################
 # Settings for local users #

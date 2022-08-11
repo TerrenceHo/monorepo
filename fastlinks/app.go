@@ -6,11 +6,14 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"path/filepath"
 	"time"
 
 	server "github.com/TerrenceHo/monorepo/fastlinks/adapters/http"
 	"github.com/TerrenceHo/monorepo/fastlinks/services"
+	"github.com/TerrenceHo/monorepo/fastlinks/stores/bbolt"
 	"github.com/TerrenceHo/monorepo/fastlinks/stores/postgresql"
+	"github.com/TerrenceHo/monorepo/utils-go/file"
 	"github.com/TerrenceHo/monorepo/utils-go/logging"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -22,7 +25,9 @@ type Config struct {
 	Env        string
 	Port       string
 	Host       string
+	Storage    string
 	DB         DBConfig
+	Local      LocalConfig
 }
 
 type DBConfig struct {
@@ -34,6 +39,10 @@ type DBConfig struct {
 	SSLMode  string
 }
 
+type LocalConfig struct {
+	File string
+}
+
 func Start(conf Config) {
 	// Instantiate logger
 	logger, err := logging.ConfigureLogger(loggerType(conf.Env))
@@ -43,25 +52,53 @@ func Start(conf Config) {
 	}
 	logging.SetGlobalLogger(logger)
 
-	// Instantiate database connections
-	// db, err := postgresql.NewConnection(
-	// 	conf.DB.User,
-	// 	conf.DB.Password,
-	// 	conf.DB.DBName,
-	// 	conf.DB.Port,
-	// 	conf.DB.Host,
-	// 	conf.DB.SSLMode,
-	// )
-	// defer db.Close()
-	// if err != nil {
-	// 	logging.Fatal(
-	// 		"failed to connect to database",
-	// 		zap.Error(err),
-	// 	)
-	// }
+	// Instantiate database connections and stores
+	var routesStore services.RoutesStore
+	switch conf.Storage {
+	case "db":
+		db, err := postgresql.NewConnection(
+			conf.DB.User,
+			conf.DB.Password,
+			conf.DB.DBName,
+			conf.DB.Port,
+			conf.DB.Host,
+			conf.DB.SSLMode,
+		)
+		defer db.Close()
+		if err != nil {
+			logging.Fatal(
+				"failed to connect to database",
+				zap.Error(err),
+			)
+		}
+		routesStore = postgresql.NewRoutesStore(db)
+	default:
+		err := os.MkdirAll(filepath.Dir(conf.Local.File), 0750)
+		if err != nil {
+			logging.Fatal(
+				"failed to create local bbolt database directory",
+				zap.Error(err),
+			)
+		}
+		err = file.CreateFileIfNotExists(conf.Local.File)
+		if err != nil {
+			logging.Fatal(
+				"failed to create local bbolt database file",
+				zap.Error(err),
+			)
+		}
+		db, err := bbolt.NewConnection(conf.Local.File, os.FileMode(0666))
+		defer db.Close()
+		if err != nil {
+			logging.Fatal(
+				"failed to open local bbolt database file",
+				zap.Error(err),
+			)
+		}
+		routesStore = bbolt.NewRoutesStore(db, "fastlinks-bucket")
+	}
 
 	// create stores
-	routesStore := postgresql.NewRoutesStore(nil)
 
 	// create services
 	healthService := services.NewHealthService(routesStore)
@@ -78,7 +115,7 @@ func Start(conf Config) {
 
 	go func() {
 		if err := app.Start(":" + conf.Port); err != http.ErrServerClosed {
-            logging.Fatal("failed to start server", zap.Error(err))
+			logging.Fatal("failed to start server", zap.Error(err))
 		}
 	}()
 

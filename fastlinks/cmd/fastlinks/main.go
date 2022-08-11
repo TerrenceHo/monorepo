@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 
 	"github.com/TerrenceHo/monorepo/fastlinks"
 	"github.com/TerrenceHo/monorepo/utils-go/stackerrors"
@@ -22,6 +23,11 @@ const (
 )
 
 func rootCmd(run func(cmd *cobra.Command, args []string)) *cobra.Command {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	mainCmd := &cobra.Command{
 		Use:   "fastlinks",
 		Short: "fastlinks: simple URL redirector",
@@ -36,12 +42,17 @@ func rootCmd(run func(cmd *cobra.Command, args []string)) *cobra.Command {
 	flags.String("host", "localhost", "hostserver on this hostname")
 	flags.StringP("port", "p", "12345", "host server on localhost:<port>")
 
+	flags.StringP("storage", "s", "local", "storage options: local, postgres")
+
 	flags.String("db.user", "fastlinks", "database user")
 	flags.String("db.password", "password", "database password")
 	flags.String("db.dbname", "fastlinks", "database name")
 	flags.String("db.port", "5432", "database port")
 	flags.String("db.host", "localhost", "database host")
 	flags.String("db.sslmode", "disable", "database sslmode")
+
+	localFile := filepath.Join(home, ".fastlinks/fastlinks.db")
+	flags.String("local.file", localFile, "local file to store fastlinks data")
 
 	return mainCmd
 }
@@ -60,7 +71,7 @@ func serve(c *cobra.Command, args []string) {
 		os.Exit(1)
 	}
 	if !conf.Hidebanner {
-		fmt.Println(logo)
+		fmt.Print(logo)
 	}
 
 	fastlinks.Start(conf)

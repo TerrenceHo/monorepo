@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/TerrenceHo/monorepo/fastlinks"
@@ -28,6 +30,12 @@ func generateConfig(t *testing.T, args []string) fastlinks.Config {
 }
 
 func TestConfig(t *testing.T) {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		t.Fatal(err)
+	}
+	localFile := filepath.Join(home, ".fastlinks/fastlinks.db")
+
 	assert := assert.New(t)
 	type testcase struct {
 		args []string
@@ -41,6 +49,7 @@ func TestConfig(t *testing.T) {
 				Hidebanner: false,
 				Host:       "localhost",
 				Port:       "12345",
+				Storage:    "local",
 				DB: fastlinks.DBConfig{
 					User:     "fastlinks",
 					Password: "password",
@@ -48,6 +57,9 @@ func TestConfig(t *testing.T) {
 					Port:     "5432",
 					Host:     "localhost",
 					SSLMode:  "disable",
+				},
+				Local: fastlinks.LocalConfig{
+					File: localFile,
 				},
 			},
 		},
@@ -69,6 +81,7 @@ func TestConfig(t *testing.T) {
 				Hidebanner: true,
 				Host:       "google.com",
 				Port:       "5555",
+				Storage:    "local",
 				DB: fastlinks.DBConfig{
 					User:     "user",
 					Password: "newpassword",
@@ -76,6 +89,9 @@ func TestConfig(t *testing.T) {
 					Port:     "6666",
 					Host:     "newhost.com",
 					SSLMode:  "verify-full",
+				},
+				Local: fastlinks.LocalConfig{
+					File: localFile,
 				},
 			},
 		},
