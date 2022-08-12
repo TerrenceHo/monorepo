@@ -46,7 +46,7 @@ func TestMigrate(t *testing.T) {
 	}
 }
 
-func TestAdd(t *testing.T) {
+func TestPut(t *testing.T) {
 	assert := assert.New(t)
 
 	type testcase struct {
@@ -77,7 +77,7 @@ func TestAdd(t *testing.T) {
 	routesStore.Migrate()
 
 	for _, testcase := range testcases {
-		err := routesStore.Add(testcase.route)
+		err := routesStore.Put(testcase.route)
 		if err != nil {
 			assert.Fail("Add error: %s", err.Error())
 		}
@@ -129,7 +129,7 @@ func TestDelete(t *testing.T) {
 	routesStore.Migrate()
 
 	for _, testcase := range testcases {
-		err := routesStore.Add(testcase.route)
+		err := routesStore.Put(testcase.route)
 		if err != nil {
 			assert.Fail("Add error: %s", err.Error())
 		}
@@ -184,7 +184,7 @@ func TestGet(t *testing.T) {
 	routesStore.Migrate()
 
 	for _, testcase := range testcases {
-		err := routesStore.Add(testcase.route)
+		err := routesStore.Put(testcase.route)
 		if err != nil {
 			assert.Fail("Add error: %s", err.Error())
 		}
@@ -227,7 +227,7 @@ func TestGetAll(t *testing.T) {
 	routesStore.Migrate()
 
 	for _, testcase := range testcases {
-		err := routesStore.Add(testcase.route)
+		err := routesStore.Put(testcase.route)
 		if err != nil {
 			assert.Fail("Add error: %s", err.Error())
 		}

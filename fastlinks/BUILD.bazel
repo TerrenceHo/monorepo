@@ -8,13 +8,19 @@ alias(
 go_library(
     name = "fastlinks",
     srcs = ["app.go"],
+    embedsrcs = [
+        "static/page.html",
+        "static/footer.html",
+        "static/root/home.html",
+        "static/new/new.html",
+    ],
     importpath = "github.com/TerrenceHo/monorepo/fastlinks",
     visibility = ["//visibility:public"],
     deps = [
         "//fastlinks/adapters/http",
         "//fastlinks/services",
         "//fastlinks/stores/bbolt",
-        "//fastlinks/stores/postgresql",
+        "//fastlinks/views",
         "//utils-go/file",
         "//utils-go/logging",
         "@com_github_labstack_echo_v4//:echo",
