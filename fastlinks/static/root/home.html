@@ -1,0 +1,24 @@
+{{define "content"}}
+  <script>
+      function deleteKey(key) {
+          fetch('/' + key, { method: 'DELETE' }).then(() => window.location.reload());
+      }
+  </script>
+  <table>
+    <tr>
+      <th>Key</th>
+      <th>URL</th>
+      <th>Extended URL</th>
+      <th>Delete</th>
+    </tr>
+    {{range $index, $element := .Data}}
+    <tr>
+        <td>{{$element.Key}}</td>
+        <td>{{$element.RedirectURL}}</td>
+        <td>{{$element.ExtendedURL}}</td>
+        <td><button type="button" onclick="deleteKey('{{$element.Key}}')")>Delete</button></td>
+    </tr>
+    {{end}}
+  </table>
+{{end}}
+

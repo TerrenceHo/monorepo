@@ -82,7 +82,7 @@ func (rs *RoutesStore) GetAll() ([]*models.Route, error) {
 	return routes, nil
 }
 
-func (rs *RoutesStore) Add(route *models.Route) error {
+func (rs *RoutesStore) Put(route *models.Route) error {
 	if err := rs.db.Update(func(tx *bolt.Tx) error {
 		b := tx.Bucket(rs.bucketName())
 		routeBytes, err := route.Encode()
@@ -91,7 +91,7 @@ func (rs *RoutesStore) Add(route *models.Route) error {
 		}
 		return b.Put([]byte(route.Key), routeBytes.Bytes())
 	}); err != nil {
-		return stackerrors.Wrapf(err, "failed to add route with key %s", route.Key)
+		return stackerrors.Wrapf(err, "failed to put route with key %s", route.Key)
 	}
 	return nil
 }

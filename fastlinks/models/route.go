@@ -10,13 +10,13 @@ import (
 
 type Route struct {
 	// Key short URL name
-	Key string
+	Key string `json:"Key"`
 
 	// RedirectURL is the URL to redirect to
-	RedirectURL string
+	RedirectURL string `json:"RedirectURL"`
 
 	// ExtendedURL holds optional appended string to the RedirectURL
-	ExtendedURL string
+	ExtendedURL string `json:"ExtendedURL"`
 }
 
 func (r *Route) Encode() (*bytes.Buffer, error) {
@@ -40,10 +40,10 @@ type routeModelValFunc func(*Route) error
 
 // Validate validates that a Route object is proper. The current validations are
 // as follows:
-//  - Key is not empty
-//  - RedirectURL is not empty
-//  - If ExtendedURL is not empty, then RedirectURL must contain the format
-//    specifier "{}"
+//   - Key is not empty
+//   - RedirectURL is not empty
+//   - If ExtendedURL is not empty, then RedirectURL must contain the format
+//     specifier "{}"
 func (r *Route) Validate() error {
 	return validateFuncs(r, hasKey, hasRedirect, validateExtendedURL)
 }

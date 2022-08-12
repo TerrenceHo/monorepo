@@ -8,6 +8,10 @@ go_library(
     ],
     importpath = "github.com/TerrenceHo/monorepo/fastlinks/services",
     visibility = ["//visibility:public"],
+    deps = [
+        "//fastlinks/models",
+        "//utils-go/stackerrors",
+    ],
 )
 
 go_test(

@@ -2,6 +2,7 @@ package fastlinks
 
 import (
 	"context"
+	"embed"
 	"fmt"
 	"net/http"
 	"os"
@@ -12,7 +13,8 @@ import (
 	server "github.com/TerrenceHo/monorepo/fastlinks/adapters/http"
 	"github.com/TerrenceHo/monorepo/fastlinks/services"
 	"github.com/TerrenceHo/monorepo/fastlinks/stores/bbolt"
-	"github.com/TerrenceHo/monorepo/fastlinks/stores/postgresql"
+	// "github.com/TerrenceHo/monorepo/fastlinks/stores/postgresql"
+	"github.com/TerrenceHo/monorepo/fastlinks/views"
 	"github.com/TerrenceHo/monorepo/utils-go/file"
 	"github.com/TerrenceHo/monorepo/utils-go/logging"
 	"github.com/labstack/echo/v4"
@@ -43,6 +45,9 @@ type LocalConfig struct {
 	File string
 }
 
+//go:embed static
+var staticContent embed.FS
+
 func Start(conf Config) {
 	// Instantiate logger
 	logger, err := logging.ConfigureLogger(loggerType(conf.Env))
@@ -56,22 +61,22 @@ func Start(conf Config) {
 	var routesStore services.RoutesStore
 	switch conf.Storage {
 	case "db":
-		db, err := postgresql.NewConnection(
-			conf.DB.User,
-			conf.DB.Password,
-			conf.DB.DBName,
-			conf.DB.Port,
-			conf.DB.Host,
-			conf.DB.SSLMode,
-		)
-		defer db.Close()
-		if err != nil {
-			logging.Fatal(
-				"failed to connect to database",
-				zap.Error(err),
-			)
-		}
-		routesStore = postgresql.NewRoutesStore(db)
+		// db, err := postgresql.NewConnection(
+		// 	conf.DB.User,
+		// 	conf.DB.Password,
+		// 	conf.DB.DBName,
+		// 	conf.DB.Port,
+		// 	conf.DB.Host,
+		// 	conf.DB.SSLMode,
+		// )
+		// defer db.Close()
+		// if err != nil {
+		// 	logging.Fatal(
+		// 		"failed to connect to database",
+		// 		zap.Error(err),
+		// 	)
+		// }
+		// routesStore = postgresql.NewRoutesStore(db)
 	default:
 		err := os.MkdirAll(filepath.Dir(conf.Local.File), 0750)
 		if err != nil {
@@ -96,25 +101,41 @@ func Start(conf Config) {
 			)
 		}
 		routesStore = bbolt.NewRoutesStore(db, "fastlinks-bucket")
+		// create bucket if it doesn't exist
+		if err = routesStore.Migrate(); err != nil {
+			logging.Fatal(
+				"failed to migrate/create local bbolt database bucket fastlinks-bucket",
+				zap.Error(err),
+			)
+		}
 	}
-
-	// create stores
 
 	// create services
 	healthService := services.NewHealthService(routesStore)
 	routesService := services.NewRoutesService(routesStore)
 
 	// create http controllers
-	rootController := server.NewRootController(healthService)
-	routesController := server.NewRoutesController(routesService, healthService)
+	rootController := server.NewRootController(routesService, healthService)
+
+	// create views
+	rootView, err := views.NewView(staticContent, "static/*.html", "static/root/*.html")
+	if err != nil {
+		logging.Fatal("failed to initiate root templates", zap.Error(err))
+	}
+	newView, err := views.NewView(staticContent, "static/*.html", "static/new/*.html")
+	if err != nil {
+		logging.Fatal("failed to initiate new templates", zap.Error(err))
+	}
+
+	renderer := views.NewRenderer(rootView, newView)
 
 	// start servers and attach http routes to server
 	app := initServer(conf)
+	app.Renderer = renderer
 	rootController.Mount(app.Group(""))
-	routesController.Mount(app.Group("routes"))
 
 	go func() {
-		if err := app.Start(":" + conf.Port); err != http.ErrServerClosed {
+		if err := app.Start(conf.Host + ":" + conf.Port); err != http.ErrServerClosed {
 			logging.Fatal("failed to start server", zap.Error(err))
 		}
 	}()

@@ -1,0 +1,15 @@
+load("//bazel/go:default.bzl", "go_library")
+
+go_library(
+    name = "views",
+    srcs = [
+        "data.go",
+        "view.go",
+    ],
+    importpath = "github.com/TerrenceHo/monorepo/fastlinks/views",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//utils-go/stackerrors",
+        "@com_github_labstack_echo_v4//:echo",
+    ],
+)
