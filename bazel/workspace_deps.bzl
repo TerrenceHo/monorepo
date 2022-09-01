@@ -5,18 +5,18 @@ def fetch_deps():
     http_archive(
         name = "bazel_skylib",
         urls = [
-            "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.2.1/bazel-skylib-1.2.1.tar.gz",
-            "https://github.com/bazelbuild/bazel-skylib/releases/download/1.2.1/bazel-skylib-1.2.1.tar.gz",
+            "https://mirror.bazel.build/github.com/bazelbuild/bazel-skylib/releases/download/1.3.0/bazel-skylib-1.3.0.tar.gz",
+            "https://github.com/bazelbuild/bazel-skylib/releases/download/1.3.0/bazel-skylib-1.3.0.tar.gz",
         ],
-        sha256 = "f7be3474d42aae265405a592bb7da8e171919d74c16f082a5457840f06054728",
+        sha256 = "74d544d96f4a5bb630d465ca8bbcfe231e3594e5aae57e1edbf17a6eb3ca2506",
     )
 
     http_archive(
         name = "io_bazel_rules_go",
-        sha256 = "685052b498b6ddfe562ca7a97736741d87916fe536623afb7da2824c0211c369",
+        sha256 = "16e9fca53ed6bd4ff4ad76facc9b7b651a89db1689a2877d6fd7b82aa824e366",
         urls = [
-            "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.33.0/rules_go-v0.33.0.zip",
-            "https://github.com/bazelbuild/rules_go/releases/download/v0.33.0/rules_go-v0.33.0.zip",
+            "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.34.0/rules_go-v0.34.0.zip",
+            "https://github.com/bazelbuild/rules_go/releases/download/v0.34.0/rules_go-v0.34.0.zip",
         ],
     )
 
@@ -34,9 +34,9 @@ def fetch_deps():
 
     http_archive(
         name = "rules_python",
-        sha256 = "5fa3c738d33acca3b97622a13a741129f67ef43f5fdfcec63b29374cc0574c29",
-        strip_prefix = "rules_python-0.9.0",
-        url = "https://github.com/bazelbuild/rules_python/archive/refs/tags/0.9.0.tar.gz",
+        sha256 = "b593d13bb43c94ce94b483c2858e53a9b811f6f10e1e0eedc61073bd90e58d9c",
+        strip_prefix = "rules_python-0.12.0",
+        url = "https://github.com/bazelbuild/rules_python/archive/refs/tags/0.12.0.tar.gz",
     )
 
     http_archive(
