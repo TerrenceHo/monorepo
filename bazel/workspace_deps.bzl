@@ -51,3 +51,17 @@ def fetch_deps():
         remote = "https://github.com/ash2k/bazel-tools.git",
         shallow_since = "1655981442 +1000",
     )
+
+    http_archive(
+        name = "aspect_gcc_toolchain",
+        urls = ["https://github.com/aspect-build/gcc-toolchain/archive/refs/tags/0.4.2.tar.gz"],
+        sha256 = "3341394b1376fb96a87ac3ca01c582f7f18e7dc5e16e8cf40880a31dd7ac0e1e",
+        strip_prefix = "gcc-toolchain-0.4.2",
+    )
+
+    http_archive(
+        name = "rules_foreign_cc",
+        sha256 = "2a4d07cd64b0719b39a7c12218a3e507672b82a97b98c6a89d38565894cf7c51",
+        strip_prefix = "rules_foreign_cc-0.9.0",
+        url = "https://github.com/bazelbuild/rules_foreign_cc/archive/refs/tags/0.9.0.tar.gz",
+    )
