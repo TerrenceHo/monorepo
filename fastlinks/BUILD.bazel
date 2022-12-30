@@ -5,6 +5,16 @@ alias(
     actual = "//fastlinks/cmd/fastlinks:fastlinks",
 )
 
+alias(
+    name = "image",
+    actual = "//fastlinks/cmd/fastlinks:fastlinks_image",
+)
+
+alias(
+    name = "install",
+    actual = "//fastlinks/cmd/fastlinks:install",
+)
+
 go_library(
     name = "fastlinks",
     srcs = ["app.go"],

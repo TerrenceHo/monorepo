@@ -1,5 +1,6 @@
 load("//bazel/go:default.bzl", "go_binary", "go_image", "go_library", "go_test")
 load("//bazel/docker:rules.bzl", "container_push")
+load("//bazel/local:rules.bzl", "local_install")
 
 go_library(
     name = "fastlinks_lib",
@@ -48,5 +49,11 @@ container_push(
     name = "push",
     image = ":fastlinks_image",
     repository = "terrenceho/fastlinks",
+    visibility = ["//visibility:public"],
+)
+
+local_install(
+    name = "install",
+    srcs = [":fastlinks"],
     visibility = ["//visibility:public"],
 )
