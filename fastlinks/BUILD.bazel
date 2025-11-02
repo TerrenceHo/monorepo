@@ -7,7 +7,7 @@ alias(
 
 alias(
     name = "image",
-    actual = "//fastlinks/cmd/fastlinks:fastlinks_image",
+    actual = "//fastlinks/cmd/fastlinks:fastlinks_image_load",
 )
 
 alias(

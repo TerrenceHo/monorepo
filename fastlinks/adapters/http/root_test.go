@@ -7,7 +7,7 @@ import (
 
 	"github.com/TerrenceHo/monorepo/fastlinks/services"
 	"github.com/TerrenceHo/monorepo/utils-go/stackerrors"
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 	"github.com/stretchr/testify/assert"
 )
 

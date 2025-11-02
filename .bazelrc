@@ -13,9 +13,6 @@ build --disk_cache=~/.cache/bazel-disk-cache
 # Helps locate build outputs.
 build --show_result=20
 
-# Turn off legacy external runfiles. Bazel will remove these soon.
-build --nolegacy_external_runfiles
-
 # Turn on --incompatible_strict_action_env. Ensures that bazel cache is not
 # invalidated when `yarn bazel` is run.
 build --incompatible_strict_action_env
@@ -30,7 +27,7 @@ build --strict_system_includes
 build --incompatible_default_to_explicit_init_py
 
 # Prevent concurrent file changes from poisoning build cache
-build --experimental_guard_against_concurrent_changes
+build --guard_against_concurrent_changes
 
 # WORKSPACE status commands
 build --workspace_status_command=bazel/scripts/workspace_status_command.sh
