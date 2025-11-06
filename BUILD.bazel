@@ -1,7 +1,8 @@
 load("@gazelle//:def.bzl", "gazelle")
+
 # load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 # load("@rules_python//gazelle:def.bzl", "GAZELLE_PYTHON_RUNTIME_DEPS")
-# load("@com_github_ash2k_bazel_tools//multirun:def.bzl", "command", "multirun")
+load("@rules_multirun//:defs.bzl", "command", "multirun")
 
 ##### Gazelle configration options
 # https://github.com/bazelbuild/bazel-gazelle#running-gazelle-with-bazel
@@ -65,10 +66,10 @@ gazelle(
 
 ##### CI Rules
 # run all image pushing rules in parallel using multirun
-# multirun(
-#     name = "push_all",
-#     commands = [
-#         "//fastlinks/cmd/fastlinks:push",
-#     ],
-#     jobs = 0,
-# )
+multirun(
+    name = "push_all",
+    commands = [
+        "//fastlinks/cmd/fastlinks:push",
+    ],
+    jobs = 0,
+)
