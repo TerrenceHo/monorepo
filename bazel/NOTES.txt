@@ -1,0 +1,2 @@
+# Bazel custom rule that invokes an internal builtin rule
+https://github.com/bazel-contrib/bazel-lib/blob/main/lib/private/expand_template.bzl#L47

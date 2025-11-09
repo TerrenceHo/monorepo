@@ -1,0 +1,35 @@
+bazel_dep(name = "rules_oci", version = "2.2.6")
+bazel_dep(name = "container_structure_test", version = "1.21.1")
+
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci.pull(
+    name = "distroless-static",
+    image = "gcr.io/distroless/static-debian10",
+    tag = "latest",
+)
+oci.pull(
+    name = "distroless-static-debug",
+    image = "gcr.io/distroless/static-debian10",
+    tag = "debug",
+)
+oci.pull(
+    name = "distroless-base",
+    digest = "sha256:9e9b50d2048db3741f86a48d939b4e4cc775f5889b3496439343301ff54cdba8",
+    image = "gcr.io/distroless/base",
+    platforms = ["linux/amd64"],
+)
+oci.pull(
+    name = "distroless-base-debug",
+    digest = "sha256:d4bcaaac2088ef3bb6ca9f600cfd3f34939fb8fb4658243ee1b00c309f509eb7",
+    image = "gcr.io/distroless/base",
+    platforms = ["linux/amd64"],
+)
+use_repo(
+    oci,
+    "distroless-base",
+    "distroless-base-debug",
+    "distroless-base-debug_linux_amd64",
+    "distroless-base_linux_amd64",
+    "distroless-static",
+    "distroless-static-debug",
+)

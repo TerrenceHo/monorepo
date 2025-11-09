@@ -1,6 +1,9 @@
-load("//bazel/go:default.bzl", "go_binary", "go_image", "go_library", "go_test")
-load("//bazel/docker:rules.bzl", "container_push")
-load("//bazel/local:rules.bzl", "local_install")
+load("@bazel_lib//lib:testing.bzl", "assert_archive_contains")
+load("@tar.bzl", "mutate", "tar")
+
+# load("//bazel/docker:rules.bzl", "container_push")
+load("//bazel/go:default.bzl", "go_binary", "go_library", "go_test")
+load("//bazel/oci:rules.bzl", "oci_image", "oci_load", "oci_push")
 
 go_library(
     name = "fastlinks_lib",
@@ -32,28 +35,60 @@ go_test(
     ],
 )
 
-go_image(
+tar(
+    name = "fastlinks_layer",
+    srcs = [":fastlinks"],
+    out = "fastlinks_layer.tar",
+    mutate = mutate(strip_prefix = package_name() + "/fastlinks_"),
+)
+
+assert_archive_contains(
+    name = "test_fastlinks_layer",
+    archive = "fastlinks_layer.tar",
+    expected = ["fastlinks"],
+)
+
+IMAGE_REPO = "terrenceho/fastlinks"
+
+oci_image(
     name = "fastlinks_image",
-    embed = [":fastlinks_lib"],
+    base = "@distroless-base",
+    entrypoint = ["/fastlinks"],
+    tars = [":fastlinks_layer"],
     visibility = ["//visibility:public"],
 )
 
-go_image(
+oci_load(
+    name = "fastlinks_image_load",
+    image = ":fastlinks_image",
+    repo_tags = ["terrenceho/fastlinks:latest"],
+    visibility = ["//visibility:public"],
+)
+
+oci_image(
     name = "fastlinks_image_debug",
-    base = "@distroless-static-debug//image",
-    embed = [":fastlinks_lib"],
+    base = "@distroless-base-debug",
+    entrypoint = ["/fastlinks"],
+    tars = [":fastlinks_layer"],
     visibility = ["//visibility:public"],
 )
 
-container_push(
+oci_load(
+    name = "fastlinks_image_debug_load",
+    image = ":fastlinks_image_debug",
+    repo_tags = ["%s:latest".format(IMAGE_REPO)],
+    visibility = ["//visibility:public"],
+)
+
+## DESIRED API:
+# if --stamp is enabled, then replace tag automatically with GIT_HASH, which
+# will be run during CI, or during manual deploy. By defualt will push "dev"
+# tagged image, for development purposes. If stamped, all remote_tags are
+# replaced.
+oci_push(
     name = "push",
     image = ":fastlinks_image",
-    repository = "terrenceho/fastlinks",
-    visibility = ["//visibility:public"],
-)
-
-local_install(
-    name = "install",
-    srcs = [":fastlinks"],
+    repository = IMAGE_REPO,
+    tag = "dev",
     visibility = ["//visibility:public"],
 )

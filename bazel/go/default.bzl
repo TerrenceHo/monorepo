@@ -1,13 +1,13 @@
-load("@io_bazel_rules_docker//go:image.bzl", _go_image = "go_image")
+# load("@rules_go//go:image.bzl", _go_image = "go_image")
 load(
-    "@io_bazel_rules_go//go:def.bzl",
+    "@rules_go//go:def.bzl",
     _go_binary = "go_binary",
     _go_library = "go_library",
     _go_test = "go_test",
 )
 
-def go_image(goarch = "amd64", goos = "linux", **kwargs):
-    _go_image(goarch = goarch, goos = goos, **kwargs)
+# def go_image(goarch = "amd64", goos = "linux", **kwargs):
+#     _go_image(goarch = goarch, goos = goos, **kwargs)
 
 def go_binary(name, **kwargs):
     """
