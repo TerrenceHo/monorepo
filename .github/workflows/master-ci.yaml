@@ -28,11 +28,11 @@ jobs:
 
       # build
       - name: Run all builds
-        run: bazel build //...
+        run: bazel build --config=master-ci --remote_header=x-buildbuddy-api-key=${BUILD_BUDDY_API_KEY} //...
 
       # test
       - name: Run all tests
-        run: bazel test //...
+        run: bazel test --config=master-ci --remote_header=x-buildbuddy-api-key=${BUILD_BUDDY_API_KEY} //...
 
       - name: Logs in with Podman to GHCR
         uses: redhat-actions/podman-login@v1
@@ -43,7 +43,7 @@ jobs:
     
       # Pushes all images
       - name: Pushes all images
-        run: bazel run --stamp //:push_all
+        run: bazel run --config=master-ci --remote_header=x-buildbuddy-api-key=${BUILD_BUDDY_API_KEY} //:push_all
 
   # release:
   #   # define a release job that requires the test job to succeed
