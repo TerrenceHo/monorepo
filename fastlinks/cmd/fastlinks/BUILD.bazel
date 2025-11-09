@@ -3,7 +3,6 @@ load("@tar.bzl", "mutate", "tar")
 
 # load("//bazel/docker:rules.bzl", "container_push")
 load("//bazel/go:default.bzl", "go_binary", "go_library", "go_test")
-load("//bazel/local:rules.bzl", "local_install")
 load("//bazel/oci:rules.bzl", "oci_image", "oci_load", "oci_push")
 
 go_library(
@@ -77,20 +76,19 @@ oci_image(
 oci_load(
     name = "fastlinks_image_debug_load",
     image = ":fastlinks_image_debug",
-    repo_tags = ["terrenceho/fastlinks_debug:latest"],
+    repo_tags = ["%s:latest".format(IMAGE_REPO)],
     visibility = ["//visibility:public"],
 )
 
+## DESIRED API:
+# if --stamp is enabled, then replace tag automatically with GIT_HASH, which
+# will be run during CI, or during manual deploy. By defualt will push "dev"
+# tagged image, for development purposes. If stamped, all remote_tags are
+# replaced.
 oci_push(
     name = "push",
     image = ":fastlinks_image",
     repository = IMAGE_REPO,
-    # stamp = 1,
-    visibility = ["//visibility:public"],
-)
-
-local_install(
-    name = "install",
-    srcs = [":fastlinks"],
+    tag = "dev",
     visibility = ["//visibility:public"],
 )
