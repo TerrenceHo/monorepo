@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - master
+env:
+  BUILD_BUDDY_API_KEY: ${{ secrets.BUILD_BUDDY_API_KEY }}
 
 jobs:
   test:
@@ -16,22 +18,22 @@ jobs:
       - uses: actions/checkout@v4
 
       # Caches and restores bazelisk download directory, the bazel build directory.
-      - name: Bazel Tree and Disk Cache
-        uses: TerrenceHo/cache-always@v0.0.1
-        env:
-          cache-name: bazel-cache
-        with:
-          path: |
-            /home/runner/.cache/bazel
-            /home/runner/.cache/bazel-disk-cache
-          key: bazel-${{ runner.os }}-${{ env.cache-name }}-${{ github.head_ref }}-v0.3.1
-          restore-keys: |
-            bazel-${{ runner.os }}-${{ env.cache-name }}-v0.3.1
+      # - name: Bazel Tree and Disk Cache
+      #   uses: TerrenceHo/cache-always@v0.0.1
+      #   env:
+      #     cache-name: bazel-cache
+      #   with:
+      #     path: |
+      #       /home/runner/.cache/bazel
+      #       /home/runner/.cache/bazel-disk-cache
+      #     key: bazel-${{ runner.os }}-${{ env.cache-name }}-${{ github.head_ref }}-v0.3.1
+      #     restore-keys: |
+      #       bazel-${{ runner.os }}-${{ env.cache-name }}-v0.3.1
 
       # build
       - name: builds the code
-        run: bazel build //...
+        run: bazel build --config:pr-ci --remote_header=x-buildbuddy-api-key=${BUILD_BUDDY_API_KEY} //...
 
       # test
       - name: tests the code
-        run: bazel test //...
+        run: bazel test --config:pr-ci --remote_header=x-buildbuddy-api-key=${BUILD_BUDDY_API_KEY} //...
