@@ -54,6 +54,9 @@ oci_image(
     name = "fastlinks_image",
     base = "@distroless-base",
     entrypoint = ["/fastlinks"],
+    labels = {
+        "org.opencontainers.image.description": "fastlinks is a simple golinks implementation",
+    },
     tars = [":fastlinks_layer"],
     visibility = ["//visibility:public"],
 )
