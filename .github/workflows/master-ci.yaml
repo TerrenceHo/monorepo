@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  test:
+  test-release:
     # virtual environments: https://github.com/actions/virtual-environments
     runs-on: ubuntu-22.04
 
