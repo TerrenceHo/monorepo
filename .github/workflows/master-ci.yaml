@@ -13,7 +13,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, which is the CWD for
       # the rest of the steps
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       # # Caches and restores bazelisk download directory, the bazel build directory.
       # - name: Bazel Tree and Disk Cache
