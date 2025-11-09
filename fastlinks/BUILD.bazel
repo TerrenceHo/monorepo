@@ -10,10 +10,10 @@ alias(
     actual = "//fastlinks/cmd/fastlinks:fastlinks_image_load",
 )
 
-alias(
-    name = "install",
-    actual = "//fastlinks/cmd/fastlinks:install",
-)
+# alias(
+#     name = "install",
+#     actual = "//fastlinks/cmd/fastlinks:install",
+# )
 
 go_library(
     name = "fastlinks",
