@@ -65,4 +65,4 @@ jobs:
 
       # Pushes all images
       - name: Pushes all images
-        run: bazel run //:push_all
+        run: bazel run --stamp //:push_all
