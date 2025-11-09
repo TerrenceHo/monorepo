@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+env:
+  BUILD_BUDDY_API_KEY: ${{ secrets.BUILD_BUDDY_API_KEY }}
+
 jobs:
   test:
     # virtual environments: https://github.com/actions/virtual-environments
