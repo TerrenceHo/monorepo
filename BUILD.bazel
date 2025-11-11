@@ -1,4 +1,6 @@
 load("@gazelle//:def.bzl", "gazelle")
+load("@pypi//:requirements.bzl", "all_data_requirements", "all_requirements", "all_whl_requirements", "requirement")
+load("@python_versions//3.13:defs.bzl", compile_pip_requirements_3_13 = "compile_pip_requirements")
 
 # load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 # load("@rules_python//gazelle:def.bzl", "GAZELLE_PYTHON_RUNTIME_DEPS")
@@ -72,4 +74,13 @@ multirun(
         "//fastlinks/cmd/fastlinks:push",
     ],
     jobs = 0,
+)
+
+##########
+# Python #
+##########
+compile_pip_requirements_3_13(
+    name = "requirements_3_13",
+    src = "requirements_3_13.in",
+    requirements_txt = "requirements_lock_3_13.txt",
 )
