@@ -1,10 +1,9 @@
-load(
-    "//bazel/python:rules.bzl",
-    "compile_pip_requirements",
-    "gazelle_python_manifest",
-    "modules_mapping",
-)
-load("@example-python_pip_deps//:requirements.bzl", "all_whl_requirements")
+# load(
+#     "//bazel/python:rules.bzl",
+#     "compile_pip_requirements",
+#     "gazelle_python_manifest",
+#     "modules_mapping",
+# )
 
 # gazelle:python_root //example-python
 
@@ -12,20 +11,20 @@ load("@example-python_pip_deps//:requirements.bzl", "all_whl_requirements")
 # depends on.
 #
 # Generates:
-# - //example_python:pip_compile.update target
-# - //example_python:pip_compile_test test
-compile_pip_requirements(
-    name = "pip_compile",
-    requirements_in = "requirements.txt",
-    requirements_txt = "requirements.txt.lock",
-)
+# - //example_python:requirements_3_13.update target
+# - //example_python:requirements_3_13_test test
+# compile_pip_requirements_3_13(
+#     name = "requirements_3_13",
+#     src = "requirements.in",
+#     requirements_txt = "requirements_lock_3_13.txt",
+# )
 
 # This rule fetches the metadata for python packages we depend on. That data is
 # required for the gazelle_python_manifest rule to update our manifest file.
-modules_mapping(
-    name = "modules_map",
-    wheels = all_whl_requirements,
-)
+# modules_mapping(
+#     name = "modules_map",
+#     wheels = all_whl_requirements,
+# )
 
 # Gazelle python extension needs a manifest file mapping from
 # an import to the installed package that provides it.
@@ -34,10 +33,10 @@ modules_mapping(
 #   to recalculate the manifest
 # - //:gazelle_python_manifest.test is a test target ensuring that
 #   the manifest doesn't need to be updated
-gazelle_python_manifest(
-    name = "gazelle_python_manifest",
-    modules_mapping = ":modules_map",
-    pip_repository_incremental = True,
-    pip_repository_name = "example-python_pip_deps",
-    requirements = ":requirements.txt.lock",
-)
+# gazelle_python_manifest(
+#     name = "gazelle_python_manifest",
+#     modules_mapping = ":modules_map",
+#     pip_repository_incremental = True,
+#     pip_repository_name = "example-python_pip_deps",
+#     requirements = ":requirements.txt.lock",
+# )

@@ -10,13 +10,16 @@
 module(name = "com_github_terrenceho_monorepo")
 
 # Basic Dpendencies
-include("//bazel:base.MODULE.bazel")
+include("//bazel/module:base.MODULE.bazel")
 
 # Gazelle
-include("//bazel:gazelle.MODULE.bazel")
+include("//bazel/module:gazelle.MODULE.bazel")
 
 # OCI Images
-include("//bazel:oci_images.MODULE.bazel")
+include("//bazel/module:oci_images.MODULE.bazel")
 
 # Go
-include("//bazel:go.MODULE.bazel")
+include("//bazel/module:go.MODULE.bazel")
+
+# Python
+include("//bazel/module:python.MODULE.bazel")
