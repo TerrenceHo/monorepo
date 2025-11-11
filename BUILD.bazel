@@ -73,7 +73,7 @@ gazelle(
         "-prune=true",
     ],
     command = "update-repos",
-    gazelle = ":gazelle_multiland",
+    gazelle = ":gazelle_multilang",
 )
 
 ##### CI Rules

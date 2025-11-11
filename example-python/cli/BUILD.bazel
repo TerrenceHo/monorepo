@@ -8,6 +8,6 @@ py_binary(
     visibility = ["//:__subpackages__"],
     deps = [
         "//example-python/example",
-        "@example-python_pip_deps//flask",
+        "@pypi//flask",
     ],
 )
