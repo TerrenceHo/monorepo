@@ -1,5 +1,3 @@
-load("@pypi//:requirements.bzl", "all_data_requirements", "all_requirements", "all_whl_requirements", "requirement")
-load("@python_versions//3.13:defs.bzl", compile_pip_requirements_3_13 = "compile_pip_requirements")
 # load(
 #     "//bazel/python:rules.bzl",
 #     "compile_pip_requirements",

@@ -1,10 +1,9 @@
-load("@gazelle//:def.bzl", "gazelle")
+load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@pypi//:requirements.bzl", "all_data_requirements", "all_requirements", "all_whl_requirements", "requirement")
 load("@python_versions//3.13:defs.bzl", compile_pip_requirements_3_13 = "compile_pip_requirements")
-
-# load("@bazel_gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
-# load("@rules_python//gazelle:def.bzl", "GAZELLE_PYTHON_RUNTIME_DEPS")
 load("@rules_multirun//:defs.bzl", "command", "multirun")
+load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
+load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 
 ##### Gazelle configration options
 # https://github.com/bazelbuild/bazel-gazelle#running-gazelle-with-bazel
@@ -36,7 +35,17 @@ load("@rules_multirun//:defs.bzl", "command", "multirun")
 # terms of classic project setup.
 # gazelle:python_root //example-python
 
-gazelle(name = "gazelle")
+gazelle_binary(
+    name = "gazelle_multilang",
+    languages = [
+        "@rules_python_gazelle_plugin//python",
+    ] + DEFAULT_LANGUAGES,
+)
+
+gazelle(
+    name = "gazelle",
+    gazelle = ":gazelle_multilang",
+)
 
 # check_build_files diffs which BUILD files are going to change. Exits with code
 # 1 if files need to change, else code 0.
@@ -64,6 +73,7 @@ gazelle(
         "-prune=true",
     ],
     command = "update-repos",
+    gazelle = ":gazelle_multiland",
 )
 
 ##### CI Rules
@@ -83,4 +93,40 @@ compile_pip_requirements_3_13(
     name = "requirements_3_13",
     src = "requirements_3_13.in",
     requirements_txt = "requirements_lock_3_13.txt",
+)
+
+##################
+# Python Gazelle #
+##################
+
+# This rule fetches the metadata for python packages we depend on. That data is
+# required for the gazelle_python_manifest rule to update our manifest file.
+modules_mapping(
+    name = "modules_map",
+    include_stub_packages = True,
+    wheels = all_whl_requirements,
+)
+
+# Gazelle python extension needs a manifest file mapping from
+# an import to the installed package that provides it.
+# This macro produces two targets:
+# - //:gazelle_python_manifest.update can be used with `bazel run`
+#   to recalculate the manifest
+# - //:gazelle_python_manifest.test is a test target ensuring that
+#   the manifest doesn't need to be updated
+gazelle_python_manifest(
+    name = "gazelle_python_manifest",
+    modules_mapping = ":modules_map",
+
+    # This is what we called our `pip.parse` rule in MODULE.bazel, where third-party
+    # python libraries are loaded in BUILD files.
+    pip_repository_name = "pypi",
+
+    # This should point to wherever we declare our python dependencies
+    # (the same as what we passed to the modules_mapping rule in WORKSPACE)
+    # This argument is optional. If provided, the `.test` target is very
+    # fast because it just has to check an integrity field. If not provided,
+    # the integrity field is not added to the manifest which can help avoid
+    # merge conflicts in large repos.
+    requirements = "//:requirements_lock_3_13.txt",
 )

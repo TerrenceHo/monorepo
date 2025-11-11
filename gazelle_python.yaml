@@ -1,0 +1,29 @@
+# GENERATED FILE - DO NOT EDIT!
+#
+# To update this file, run:
+#   bazel run //:gazelle_python_manifest.update
+
+---
+manifest:
+  modules_mapping:
+    attr: attrs
+    attrs: attrs
+    blinker: blinker
+    click: click
+    flask: flask
+    importlib_metadata: importlib_metadata
+    iniconfig: iniconfig
+    itsdangerous: itsdangerous
+    jinja2: Jinja2
+    markupsafe: markupsafe
+    packaging: packaging
+    pluggy: pluggy
+    py: py
+    pyparsing: pyparsing
+    pytest: pytest
+    tomli: tomli
+    werkzeug: werkzeug
+    zipp: zipp
+  pip_repository:
+    name: pypi
+integrity: f0f61a2f8a2c21b8baad2656e812e5853435c2951c14f540efbfdd874b52746c

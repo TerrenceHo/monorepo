@@ -20,6 +20,6 @@ py_test(
     main = "__test__.py",
     deps = [
         ":example",
-        "@pypi//pytest",
+        "@example-python_pip_deps//pytest",
     ],
 )
