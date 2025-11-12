@@ -23,3 +23,6 @@ include("//bazel/module:go.MODULE.bazel")
 
 # Python
 include("//bazel/module:python.MODULE.bazel")
+
+# Rust
+include("//bazel/module:rust.MODULE.bazel")
