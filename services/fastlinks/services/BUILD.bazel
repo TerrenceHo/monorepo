@@ -1,0 +1,26 @@
+load("//bazel/go:default.bzl", "go_library", "go_test")
+
+go_library(
+    name = "services",
+    srcs = [
+        "health.go",
+        "routes.go",
+    ],
+    importpath = "github.com/TerrenceHo/monorepo/services/fastlinks/services",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//libs/go/stackerrors",
+        "//services/fastlinks/models",
+    ],
+)
+
+go_test(
+    name = "services_test",
+    size = "small",
+    srcs = ["health_test.go"],
+    embed = [":services"],
+    deps = [
+        "//libs/go/stackerrors",
+        "@com_github_stretchr_testify//assert",
+    ],
+)

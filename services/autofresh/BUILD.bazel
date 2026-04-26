@@ -1,0 +1,11 @@
+load("//bazel/go:default.bzl", "go_library")
+
+go_library(
+    name = "autofresh",
+    srcs = [
+        "app.go",
+        "logger.go",
+    ],
+    importpath = "github.com/TerrenceHo/monorepo/services/autofresh",
+    visibility = ["//visibility:public"],
+)
