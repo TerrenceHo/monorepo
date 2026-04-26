@@ -1,0 +1,26 @@
+load("//bazel/go:default.bzl", "go_library", "go_test")
+
+go_library(
+    name = "http",
+    srcs = ["root.go"],
+    importpath = "github.com/TerrenceHo/monorepo/services/fastlinks/adapters/http",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//services/fastlinks/models",
+        "//services/fastlinks/services",
+        "//services/fastlinks/views",
+        "@com_github_labstack_echo_v4//:echo",
+    ],
+)
+
+go_test(
+    name = "http_test",
+    srcs = ["root_test.go"],
+    embed = [":http"],
+    deps = [
+        "//libs/go/stackerrors",
+        "//services/fastlinks/services",
+        "@com_github_labstack_echo_v4//:echo",
+        "@com_github_stretchr_testify//assert",
+    ],
+)

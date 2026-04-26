@@ -1,0 +1,50 @@
+load("//bazel/go:default.bzl", "go_library", "go_test")
+
+alias(
+    name = "bin",
+    actual = "//services/fastlinks/cmd/fastlinks:fastlinks",
+)
+
+alias(
+    name = "image",
+    actual = "//services/fastlinks/cmd/fastlinks:fastlinks_image_load",
+)
+
+# alias(
+#     name = "install",
+#     actual = "//fastlinks/cmd/fastlinks:install",
+# )
+
+go_library(
+    name = "fastlinks",
+    srcs = ["app.go"],
+    embedsrcs = [
+        "static/page.html",
+        "static/footer.html",
+        "static/root/home.html",
+        "static/new/new.html",
+    ],
+    importpath = "github.com/TerrenceHo/monorepo/services/fastlinks",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//libs/go/file",
+        "//libs/go/logging",
+        "//services/fastlinks/adapters/http",
+        "//services/fastlinks/services",
+        "//services/fastlinks/stores/bbolt",
+        "//services/fastlinks/views",
+        "@com_github_labstack_echo_v4//:echo",
+        "@com_github_labstack_echo_v4//middleware",
+        "@org_uber_go_zap//:zap",
+    ],
+)
+
+go_test(
+    name = "fastlinks_test",
+    srcs = ["app_test.go"],
+    embed = [":fastlinks"],
+    deps = [
+        "//libs/go/logging",
+        "@com_github_stretchr_testify//assert",
+    ],
+)
