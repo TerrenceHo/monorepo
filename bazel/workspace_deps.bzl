@@ -47,7 +47,7 @@ def fetch_deps():
 
     git_repository(
         name = "com_github_ash2k_bazel_tools",
-        commit = "6e6c3717bb879f27d473a80fe8a43f2cc0e25298",
+        commit = "415483a9e13342a6603a710b0296f6d85b8d26bf",
         remote = "https://github.com/ash2k/bazel-tools.git",
         shallow_since = "1655981442 +1000",
     )
