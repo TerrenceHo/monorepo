@@ -14,7 +14,7 @@ def fetch_images():
         registry = "gcr.io",
         repository = "distroless/static-debian10",
         tag = "debug",
-        digest = "sha256:29a7c9bd164728e83937518f7e339a51ae096292ba6410cc2bcc07c4e99533f8",
+        digest = "sha256:668c3ca24a6f511f20cb458619f83ef8a14b27de0425340ca76a3dff0cd1e6e8",
     )
 
     container_pull(
