@@ -20,7 +20,7 @@ oci.pull(
 )
 oci.pull(
     name = "distroless-base-debug",
-    digest = "sha256:d4bcaaac2088ef3bb6ca9f600cfd3f34939fb8fb4658243ee1b00c309f509eb7",
+    digest = "sha256:f2df8702d4dcc45ce76df6cbc14ad1975fcf88a04bd0e8947b6194264f9ab75e",
     image = "gcr.io/distroless/base",
     platforms = ["linux/amd64"],
 )
