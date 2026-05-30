@@ -1,6 +1,6 @@
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@pypi//:requirements.bzl", "all_data_requirements", "all_requirements", "all_whl_requirements", "requirement")
-load("@python_versions//3.13:defs.bzl", compile_pip_requirements_3_13 = "compile_pip_requirements")
+load("@python_versions//3.14:defs.bzl", compile_pip_requirements_3_14 = "compile_pip_requirements")
 load("@rules_multirun//:defs.bzl", "command", "multirun")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
@@ -62,10 +62,10 @@ multirun(
 ##########
 # Python #
 ##########
-compile_pip_requirements_3_13(
-    name = "requirements_3_13",
-    src = "requirements_3_13.in",
-    requirements_txt = "requirements_lock_3_13.txt",
+compile_pip_requirements_3_14(
+    name = "requirements_3_14",
+    src = "requirements_3_14.in",
+    requirements_txt = "requirements_lock_3_14.txt",
 )
 
 ##################
@@ -101,5 +101,5 @@ gazelle_python_manifest(
     # fast because it just has to check an integrity field. If not provided,
     # the integrity field is not added to the manifest which can help avoid
     # merge conflicts in large repos.
-    requirements = "//:requirements_lock_3_13.txt",
+    requirements = "//:requirements_lock_3_14.txt",
 )
