@@ -6,24 +6,141 @@
 ---
 manifest:
   modules_mapping:
+    81d243bd2c585b0f4821__mypyc: charset_normalizer
+    IPython: ipython
+    PIL: pillow
+    anyio: anyio
+    argon2: argon2_cffi
+    arrow: arrow
+    asttokens: asttokens
+    async_lru: async_lru
     attr: attrs
     attrs: attrs
+    babel: babel
+    bleach: bleach
     blinker: blinker
+    bs4: beautifulsoup4
+    certifi: certifi
+    cffi: cffi
+    charset_normalizer: charset_normalizer
     click: click
+    comm: comm
+    contourpy: contourpy
+    cycler: cycler
+    dateutil: python_dateutil
+    debugpy: debugpy
+    decorator: decorator
+    defusedxml: defusedxml
+    executing: executing
+    fastjsonschema: fastjsonschema
     flask: flask
+    fontTools: fonttools
+    fqdn: fqdn
+    h11: h11
+    httpcore: httpcore
+    httpx: httpx
+    idna: idna
+    imageio: imageio
     importlib_metadata: importlib_metadata
     iniconfig: iniconfig
+    ipykernel: ipykernel
+    ipykernel_launcher: ipykernel
+    ipython_pygments_lexers: ipython_pygments_lexers
+    ipywidgets: ipywidgets
+    isoduration: isoduration
+    isympy: sympy
     itsdangerous: itsdangerous
-    jinja2: Jinja2
+    jedi: jedi
+    jinja2: jinja2
+    joblib: joblib
+    json5: json5
+    jsonpointer: jsonpointer
+    jsonschema: jsonschema
+    jsonschema_specifications: jsonschema_specifications
+    jupyter: jupyter_core
+    jupyter_client: jupyter_client
+    jupyter_core: jupyter_core
+    jupyter_events: jupyter_events
+    jupyter_lsp: jupyter_lsp
+    jupyter_server: jupyter_server
+    jupyter_server_terminals: jupyter_server_terminals
+    jupyterlab: jupyterlab
+    jupyterlab_pygments: jupyterlab_pygments
+    jupyterlab_server: jupyterlab_server
+    jupyterlab_widgets: jupyterlab_widgets
+    kiwisolver: kiwisolver
+    lark: lark
+    lazy_loader: lazy_loader
     markupsafe: markupsafe
+    matplotlib: matplotlib
+    matplotlib_inline: matplotlib_inline
+    mistune: mistune
+    mpl_toolkits.axes_grid1: matplotlib
+    mpl_toolkits.axisartist: matplotlib
+    mpl_toolkits.mplot3d: matplotlib
+    mpmath: mpmath
+    nbclient: nbclient
+    nbconvert: nbconvert
+    nbformat: nbformat
+    nest_asyncio: nest_asyncio
+    networkx: networkx
+    notebook_shim: notebook_shim
+    numpy: numpy
     packaging: packaging
+    pandas: pandas
+    pandocfilters: pandocfilters
+    parso: parso
+    pexpect: pexpect
+    pkg_resources: setuptools
+    platformdirs: platformdirs
     pluggy: pluggy
-    py: py
+    polars: polars
+    prometheus_client: prometheus_client
+    prompt_toolkit: prompt_toolkit
+    psutil: psutil
+    ptyprocess: ptyprocess
+    pure_eval: pure_eval
+    py: pytest
+    pycparser: pycparser
+    pygments: pygments
+    pylab: matplotlib
     pyparsing: pyparsing
     pytest: pytest
-    tomli: tomli
+    pythonjsonlogger: python_json_logger
+    referencing: referencing
+    requests: requests
+    rfc3339_validator: rfc3339_validator
+    rfc3986_validator: rfc3986_validator
+    rfc3987_syntax: rfc3987_syntax
+    rpds: rpds_py
+    scipy: scipy
+    send2trash: send2trash
+    setuptools: setuptools
+    six: six
+    skimage: scikit_image
+    sklearn: scikit_learn
+    soupsieve: soupsieve
+    stack_data: stack_data
+    sympy: sympy
+    terminado: terminado
+    threadpoolctl: threadpoolctl
+    tifffile: tifffile
+    tinycss2: tinycss2
+    tornado: tornado
+    traitlets: traitlets
+    typing_extensions: typing_extensions
+    tzdata: tzdata
+    uri_template: uri_template
+    urllib3: urllib3
+    wcwidth: wcwidth
+    webcolors: webcolors
+    webencodings: webencodings
+    websocket: websocket_client
     werkzeug: werkzeug
+    widgetsnbextension: widgetsnbextension
+    yaml: pyyaml
     zipp: zipp
+    zmq: pyzmq
   pip_repository:
     name: pypi
-integrity: f0f61a2f8a2c21b8baad2656e812e5853435c2951c14f540efbfdd874b52746c
+integrity: ffbae39cc61eecb6838376392f6ad14ddcfa67f812026776e73d199f81bba9a8
