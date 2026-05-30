@@ -9,8 +9,6 @@ manifest:
     81d243bd2c585b0f4821__mypyc: charset_normalizer
     IPython: ipython
     PIL: pillow
-    absl: absl_py
-    aiofiles: aiofiles
     anyio: anyio
     argon2: argon2_cffi
     arrow: arrow
@@ -28,29 +26,19 @@ manifest:
     click: click
     comm: comm
     contourpy: contourpy
-    cuda.bindings: cuda_bindings
-    cuda.pathfinder: cuda_pathfinder
     cycler: cycler
     dateutil: python_dateutil
     debugpy: debugpy
     decorator: decorator
     defusedxml: defusedxml
-    etils: etils
     executing: executing
     fastjsonschema: fastjsonschema
-    filelock: filelock
     flask: flask
-    flax: flax
-    flaxlib_src.src.flaxlib: flax
     fontTools: fonttools
     fqdn: fqdn
-    fsspec: fsspec
-    functorch: torch
-    google.protobuf: protobuf
     h11: h11
     httpcore: httpcore
     httpx: httpx
-    humanize: humanize
     idna: idna
     imageio: imageio
     importlib_metadata: importlib_metadata
@@ -62,10 +50,6 @@ manifest:
     isoduration: isoduration
     isympy: sympy
     itsdangerous: itsdangerous
-    jax: jax
-    jax_cuda13_plugin: jax_cuda13_plugin
-    jax_plugins.xla_cuda13: jax_cuda13_pjrt
-    jaxlib: jaxlib
     jedi: jedi
     jinja2: jinja2
     joblib: joblib
@@ -87,18 +71,14 @@ manifest:
     kiwisolver: kiwisolver
     lark: lark
     lazy_loader: lazy_loader
-    markdown_it: markdown_it_py
     markupsafe: markupsafe
     matplotlib: matplotlib
     matplotlib_inline: matplotlib_inline
-    mdurl: mdurl
     mistune: mistune
-    ml_dtypes: ml_dtypes
     mpl_toolkits.axes_grid1: matplotlib
     mpl_toolkits.axisartist: matplotlib
     mpl_toolkits.mplot3d: matplotlib
     mpmath: mpmath
-    msgpack: msgpack
     nbclient: nbclient
     nbconvert: nbconvert
     nbformat: nbformat
@@ -106,13 +86,6 @@ manifest:
     networkx: networkx
     notebook_shim: notebook_shim
     numpy: numpy
-    nvidia.cu13.lib.libcheckpoint: nvidia_cuda_cupti
-    nvidia.cu13.lib.libnvperf_host: nvidia_cuda_cupti
-    nvidia.cu13.lib.libnvperf_target: nvidia_cuda_cupti
-    nvidia.cu13.lib.libpcsamplingutil: nvidia_cuda_cupti
-    opt_einsum: opt_einsum
-    optax: optax
-    orbax.checkpoint: orbax_checkpoint
     packaging: packaging
     pandas: pandas
     pandocfilters: pandocfilters
@@ -139,36 +112,26 @@ manifest:
     rfc3339_validator: rfc3339_validator
     rfc3986_validator: rfc3986_validator
     rfc3987_syntax: rfc3987_syntax
-    rich: rich
     rpds: rpds_py
     scipy: scipy
     send2trash: send2trash
     setuptools: setuptools
-    simplejson: simplejson
     six: six
     skimage: scikit_image
     sklearn: scikit_learn
     soupsieve: soupsieve
     stack_data: stack_data
     sympy: sympy
-    tensorstore: tensorstore
     terminado: terminado
     threadpoolctl: threadpoolctl
     tifffile: tifffile
     tinycss2: tinycss2
-    torch: torch
-    torchaudio: torchaudio
-    torchgen: torch
-    torchvision: torchvision
     tornado: tornado
     traitlets: traitlets
-    treescope: treescope
-    triton: triton
     typing_extensions: typing_extensions
     tzdata: tzdata
     uri_template: uri_template
     urllib3: urllib3
-    uvloop: uvloop
     wcwidth: wcwidth
     webcolors: webcolors
     webencodings: webencodings
@@ -180,4 +143,4 @@ manifest:
     zmq: pyzmq
   pip_repository:
     name: pypi
-integrity: 13df1f4058283ac3989eb8e40431b5c6e5342a160e3504ec336a44a61bd57e5d
+integrity: ffbae39cc61eecb6838376392f6ad14ddcfa67f812026776e73d199f81bba9a8

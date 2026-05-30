@@ -15,12 +15,13 @@ scikit-learn
 sympy
 
 # GPU
-torch>=2.5
-torchvision>=0.20
-torchaudio>=2.5
-jax[cuda13]>=0.4.35
-flax>=0.10
-optax>=0.2.4
+# Commented out for now, since these dependencies are super large and don't add much value right now
+# torch>=2.5
+# torchvision>=0.20
+# torchaudio>=2.5
+# jax[cuda13]>=0.4.35
+# flax>=0.10
+# optax>=0.2.4
 
 # test
 pytest>=7.1.2
