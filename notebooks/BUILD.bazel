@@ -1,0 +1,25 @@
+load("//bazel/python:rules.bzl", "py_binary", "py_library")
+
+py_binary(
+    name = "ipython",
+    srcs = ["ipython_entry.py"],
+    main = "ipython_entry.py",
+    tags = [
+        "no-cache",
+        "no-remote",
+    ],
+    deps = [
+        "@pypi//ipython",
+        "@pypi//jax",
+        "@pypi//numpy",
+        "@pypi//pandas",
+        "@pypi//torch",
+    ],
+)
+
+py_library(
+    name = "notebooks",
+    srcs = ["ipython_entry.py"],
+    visibility = ["//:__subpackages__"],
+    deps = ["@pypi//ipython"],
+)

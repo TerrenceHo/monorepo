@@ -10,6 +10,13 @@ use_repo(python, "python_3_14", "python_versions", "pythons_hub")
 
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 pip.parse(
+    experimental_index_url = "https://pypi.org/simple",
+    experimental_index_url_overrides = {
+        "torch": "https://download.pytorch.org/whl/cu132",
+        "torchvision": "https://download.pytorch.org/whl/cu132",
+        "torchaudio": "https://download.pytorch.org/whl/cu132",
+        "triton": "https://download.pytorch.org/whl/cu132",
+    },
     hub_name = "pypi",
     python_version = "3.14",
     requirements_lock = "//:requirements_lock_3_14.txt",
