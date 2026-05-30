@@ -4,16 +4,10 @@ py_binary(
     name = "ipython",
     srcs = ["ipython_entry.py"],
     main = "ipython_entry.py",
-    tags = [
-        "no-cache",
-        "no-remote",
-    ],
     deps = [
         "@pypi//ipython",
-        "@pypi//jax",
         "@pypi//numpy",
         "@pypi//pandas",
-        "@pypi//torch",
     ],
 )
 
