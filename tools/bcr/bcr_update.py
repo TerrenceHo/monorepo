@@ -59,6 +59,12 @@ class Dep:
 # --------------------------------------------------------------------------- #
 # Discovery
 # --------------------------------------------------------------------------- #
+def _is_module_file(filename: str) -> bool:
+    # Match the canonical MODULE.bazel plus include() segment files such
+    # as go.MODULE.bazel, rust.MODULE.bazel, etc.
+    return filename == "MODULE.bazel" or filename.endswith(".MODULE.bazel")
+
+
 def find_module_files(paths: list[str]) -> list[str]:
     found: list[str] = []
     seen: set[str] = set()
@@ -80,8 +86,9 @@ def find_module_files(paths: list[str]) -> list[str]:
                 for d in dirnames
                 if not d.startswith("bazel-") and d not in (".git", ".hg", ".svn")
             ]
-            if "MODULE.bazel" in filenames:
-                add(os.path.join(dirpath, "MODULE.bazel"))
+            for fn in sorted(filenames):
+                if _is_module_file(fn):
+                    add(os.path.join(dirpath, fn))
     return found
 
 
@@ -320,7 +327,7 @@ def main(argv: list[str] | None = None) -> int:
         description="Check or update bazel_dep versions against the Bazel " "Central Registry.",
     )
     p.add_argument(
-        "paths", nargs="*", default=["."], help="MODULE.bazel files or dirs to scan (default: .)"
+        "paths", nargs="*", default=[], help="MODULE.bazel files or dirs to scan (default: .)"
     )
     p.add_argument(
         "-u", "--update", action="store_true", help="rewrite out-of-date versions in place"
@@ -348,7 +355,10 @@ def main(argv: list[str] | None = None) -> int:
         help="in check mode, exit 1 if any upgrades are available",
     )
     p.add_argument("--no-color", action="store_true", help="disable color")
+
     args = p.parse_args(argv)
+    if not args.paths:
+        args.paths = [os.environ.get("BUILD_WORKSPACE_DIRECTORY", ".")]
 
     c = C(enabled=sys.stdout.isatty() and not args.no_color and not args.json)
 
