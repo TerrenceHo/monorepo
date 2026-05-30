@@ -1,1 +1,1 @@
-bazel_dep(name = "gazelle", version = "0.50.0")
+bazel_dep(name = "gazelle", version = "0.51.0")
