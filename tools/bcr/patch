@@ -1,0 +1,25 @@
+--- bcr_update.py
++++ bcr_update.py
+@@ -59,6 +59,12 @@
+ # --------------------------------------------------------------------------- #
+ # Discovery
+ # --------------------------------------------------------------------------- #
++def _is_module_file(filename: str) -> bool:
++    # Match the canonical MODULE.bazel plus include() segment files such
++    # as go.MODULE.bazel, rust.MODULE.bazel, etc.
++    return filename == "MODULE.bazel" or filename.endswith(".MODULE.bazel")
++
++
+ def find_module_files(paths: list[str]) -> list[str]:
+     found: list[str] = []
+     seen: set[str] = set()
+@@ -79,8 +85,9 @@
+                 d for d in dirnames
+                 if not d.startswith("bazel-") and d not in (".git", ".hg", ".svn")
+             ]
+-            if "MODULE.bazel" in filenames:
+-                add(os.path.join(dirpath, "MODULE.bazel"))
++            for fn in sorted(filenames):
++                if _is_module_file(fn):
++                    add(os.path.join(dirpath, fn))
+     return found

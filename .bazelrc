@@ -9,7 +9,7 @@ build --symlink_prefix=.bazel/
 # shutdown (helps with cache thrashing when changing branches).
 build --disk_cache=~/.cache/bazel-disk-cache
 
-# BuildBuddy 
+# BuildBuddy
 build --bes_results_url=https://app.buildbuddy.io/invocation/
 build --bes_backend=grpcs://remote.buildbuddy.io
 build --remote_cache=grpcs://remote.buildbuddy.io
@@ -22,7 +22,7 @@ build --show_result=20
 # Turn on --incompatible_strict_action_env. Ensures that bazel cache is not
 # invalidated when `yarn bazel` is run.
 build --incompatible_strict_action_env
-run --incompatible_strict_action_env
+# run --incompatible_strict_action_env
 
 # Avoid using random headers on a machine that can interfere with Bazel's C++
 # toolchains

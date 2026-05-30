@@ -1,0 +1,14 @@
+load("//bazel/python:rules.bzl", "py_binary", "py_library")
+
+py_binary(
+    name = "bcr_update",
+    srcs = ["bcr_update.py"],
+    main = "bcr_update.py",
+    visibility = ["//visibility:public"],
+)
+
+py_library(
+    name = "bcr",
+    srcs = ["bcr_update.py"],
+    visibility = ["//:__subpackages__"],
+)
