@@ -1,23 +1,18 @@
 name: Master CI
-
-on: 
+on:
   push:
     branches:
       - master
-
 env:
   BUILD_BUDDY_API_KEY: ${{ secrets.BUILD_BUDDY_API_KEY }}
-
 jobs:
   test:
     # virtual environments: https://github.com/actions/virtual-environments
-    runs-on: ubuntu-22.04
-
+    runs-on: ubuntu-24.04
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, which is the CWD for
       # the rest of the steps
       - uses: actions/checkout@v6
-
       # # Caches and restores bazelisk download directory, the bazel build directory.
       # - name: Bazel Tree and Disk Cache
       #   uses: TerrenceHo/cache-always@v0.0.1
@@ -32,51 +27,48 @@ jobs:
       # build
       - name: Run all builds
         run: bazel build --config=master-ci --remote_header=x-buildbuddy-api-key=${BUILD_BUDDY_API_KEY} //...
-
       # test
       - name: Run all tests
         run: bazel test --config=master-ci --remote_header=x-buildbuddy-api-key=${BUILD_BUDDY_API_KEY} //...
-
       - name: Logs in with Podman to GHCR
         uses: redhat-actions/podman-login@v1
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-    
       # Pushes all images
       - name: Pushes all images
         run: bazel run --config=master-ci --remote_header=x-buildbuddy-api-key=${BUILD_BUDDY_API_KEY} //:push_all
 
-  # release:
-  #   # define a release job that requires the test job to succeed
-  #   needs: test
-  #   runs-on: ubuntu-22.04
-  #
-  #   steps:
-  #     # Checks-out your repository under $GITHUB_WORKSPACE, which is the CWD for
-  #     # the rest of the steps
-  #     - uses: actions/checkout@v3
-  #
-  #     # Caches and restores bazelisk download directory, the bazel build directory.
-  #     - name: Bazel Tree and Disk Cache
-  #       uses: TerrenceHo/cache-always@v0.0.1
-  #       env:
-  #         cache-name: bazel-cache
-  #       with:
-  #         path: |
-  #           /home/runner/.cache/bazel
-  #           /home/runner/.cache/bazel-disk-cache
-  #         key: bazel-${{ runner.os }}-${{ env.cache-name }}-v0.3.1
-  #
-  #     # Docker Login
-  #     - name: Login to GitHub Container Registry
-  #       uses: docker/login-action@v2
-  #       with:
-  #         registry: ghcr.io
-  #         username: ${{ github.repository_owner }}
-  #         password: ${{ secrets.GITHUB_TOKEN }}
-  #
-  #     # Pushes all images
-  #     - name: Pushes all images
-  #       run: bazel run --stamp //:push_all
+# release:
+#   # define a release job that requires the test job to succeed
+#   needs: test
+#   runs-on: ubuntu-22.04
+#
+#   steps:
+#     # Checks-out your repository under $GITHUB_WORKSPACE, which is the CWD for
+#     # the rest of the steps
+#     - uses: actions/checkout@v3
+#
+#     # Caches and restores bazelisk download directory, the bazel build directory.
+#     - name: Bazel Tree and Disk Cache
+#       uses: TerrenceHo/cache-always@v0.0.1
+#       env:
+#         cache-name: bazel-cache
+#       with:
+#         path: |
+#           /home/runner/.cache/bazel
+#           /home/runner/.cache/bazel-disk-cache
+#         key: bazel-${{ runner.os }}-${{ env.cache-name }}-v0.3.1
+#
+#     # Docker Login
+#     - name: Login to GitHub Container Registry
+#       uses: docker/login-action@v2
+#       with:
+#         registry: ghcr.io
+#         username: ${{ github.repository_owner }}
+#         password: ${{ secrets.GITHUB_TOKEN }}
+#
+#     # Pushes all images
+#     - name: Pushes all images
+#       run: bazel run --stamp //:push_all
