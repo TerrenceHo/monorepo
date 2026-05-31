@@ -1,0 +1,9 @@
+[workspace]
+resolve = "2"
+
+[workspace.dependencies]
+tokio = { version = "1.43", features = ["full"] }
+tonic = { version = "0.12" }
+prost = { version = "0.13" }
+prost-types = { version = "0.13" }
+anyhow = { version = "1" }
