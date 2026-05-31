@@ -13,7 +13,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, which is the CWD for
       # the rest of the steps
       - uses: actions/checkout@v6
-      - uses: warchant/setup-mold@v1
+      - uses: rui314/setup-mold@v1
+        with:
+          make-default: false
       - name: Show available linkers
         run: |
           echo "PATH ld candidates:"
