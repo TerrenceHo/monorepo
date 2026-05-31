@@ -22,11 +22,10 @@ build --show_result=20
 # Turn on --incompatible_strict_action_env. Ensures that bazel cache is not
 # invalidated when `yarn bazel` is run.
 build --incompatible_strict_action_env
-build --action_env=PATH
 
 # Avoid using random headers on a machine that can interfere with Bazel's C++
 # toolchains
-build --strict_system_includes
+# build --strict_system_includes
 
 # Don't automatically create __init__.py files. Developers must place these
 # files into the source tree themselves.

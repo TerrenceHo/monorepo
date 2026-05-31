@@ -1,11 +1,10 @@
-bazel_dep(name = "rules_cc", version = "0.2.18")
-bazel_dep(name = "toolchains_llvm", version = "1.7.0")  # hermetic CC toolchain
+# bazel_dep(name = "rules_cc", version = "0.2.18")
 
-# llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
-# llvm.toolchain(
-#     name = "llvm_toolchain",
-#     llvm_version = "22.1.6",
-# )
-# use_repo(llvm, "llvm_toolchain")
-#
-# register_toolchains("@llvm_toolchain//:all")
+# bazel_dep(name = "toolchains_llvm", version = "1.7.0")  # hermetic CC toolchain
+bazel_dep(name = "llvm", version = "0.8.3")
+
+llvm_source = use_extension("@llvm//extensions:llvm_source.bzl", "llvm_source")
+llvm_source.version(llvm_version = "21.1.8")
+use_repo(llvm_source, "llvm-raw", "llvm_config", "llvm_zlib", "llvm_zstd")
+
+register_toolchains("@llvm//toolchain:all")

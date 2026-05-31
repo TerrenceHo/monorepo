@@ -6,11 +6,11 @@ include("//bazel/module:base.MODULE.bazel")
 # Gazelle
 include("//bazel/module:gazelle.MODULE.bazel")
 
-# Protobuf
-include("//bazel/module:proto.MODULE.bazel")
-
 # C++
 include("//bazel/module:cpp.MODULE.bazel")
+
+# Protobuf
+include("//bazel/module:proto.MODULE.bazel")
 
 # OCI Images
 include("//bazel/module:oci_images.MODULE.bazel")
