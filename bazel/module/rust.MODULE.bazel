@@ -1,0 +1,16 @@
+bazel_dep(name = "rules_rust", version = "0.70.0")
+bazel_dep(name = "rules_rust_prost", version = "0.70.0")
+
+# crate = use_extension(
+#     "@rules_rust//crate_universe:extension.bzl",
+#     "crate",
+# )
+# crate.from_cargo(
+#     name = "crate_index",
+#     cargo_lockfile = "//:Cargo.lock",
+#     manifests = [
+#         "//:Cargo.toml",
+#         # "//services/ingest:Cargo.toml",
+#     ],
+# )
+# use_repo(crate, "crate_index")

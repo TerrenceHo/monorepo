@@ -1,39 +1,50 @@
 name: Pull Request CI
-
-on: 
+on:
   pull_request:
     branches:
       - master
 env:
   BUILD_BUDDY_API_KEY: ${{ secrets.BUILD_BUDDY_API_KEY }}
-
 jobs:
   test:
     # virtual environments: https://github.com/actions/virtual-environments
-    runs-on: ubuntu-22.04
-
+    runs-on: ubuntu-24.04
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, which is the CWD for
       # the rest of the steps
       - uses: actions/checkout@v6
-
-      # Caches and restores bazelisk download directory, the bazel build directory.
-      # - name: Bazel Tree and Disk Cache
-      #   uses: TerrenceHo/cache-always@v0.0.1
-      #   env:
-      #     cache-name: bazel-cache
-      #   with:
-      #     path: |
-      #       /home/runner/.cache/bazel
-      #       /home/runner/.cache/bazel-disk-cache
-      #     key: bazel-${{ runner.os }}-${{ env.cache-name }}-${{ github.head_ref }}-v0.3.1
-      #     restore-keys: |
-      #       bazel-${{ runner.os }}-${{ env.cache-name }}-v0.3.1
-
+      - uses: rui314/setup-mold@v1
+        with:
+          make-default: true
+      - name: Show available linkers
+        run: |
+          echo "PATH ld candidates:"
+          for l in ld ld.bfd ld.gold ld.lld ld.mold ldd gold mold; do
+            command -v $l && $l --version | head -1 || echo "$l: not found"
+          done
+          ls /usr/bin/ld.lld* 2>/dev/null || echo "no ld.lld* in /usr/bin"
+      - name: show PATH
+        run: echo $PATH
+      - name: show gcc
+        run: which gcc
       # build
       - name: builds the code
         run: bazel build --config=pr-ci --remote_header=x-buildbuddy-api-key=${BUILD_BUDDY_API_KEY} //...
-
       # test
       - name: tests the code
         run: bazel test --config=pr-ci --remote_header=x-buildbuddy-api-key=${BUILD_BUDDY_API_KEY} //...
+
+# Caches and restores bazelisk download directory, the bazel build directory.
+# - name: Bazel Tree and Disk Cache
+#   uses: TerrenceHo/cache-always@v0.0.1
+#   env:
+#     cache-name: bazel-cache
+#   with:
+#     path: |
+#       /home/runner/.cache/bazel
+#       /home/runner/.cache/bazel-disk-cache
+#     key: bazel-${{ runner.os }}-${{ env.cache-name }}-${{ github.head_ref }}-v0.3.1
+#     restore-keys: |
+#       bazel-${{ runner.os }}-${{ env.cache-name }}-v0.3.1
+#
+#

@@ -1,0 +1,81 @@
+load("@aspect_bazel_lib//lib:copy_to_directory.bzl", "copy_to_directory")
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+load("//bazel/go:default.bzl", "go_library")
+
+# load("@rules_rust_prost//:defs.bzl", "rust_prost_library")
+
+proto_library(
+    name = "greeter_proto",
+    srcs = ["greeter.proto"],
+    visibility = ["//visibility:public"],
+)
+
+go_proto_library(
+    name = "greeter_go_proto",
+    compilers = [
+        "@rules_go//proto:go_proto",
+        "@rules_go//proto:go_grpc_v2",
+    ],
+    importpath = "github.com/TerrenceHo/monorepo/proto/api/v1/greeter",
+    proto = ":greeter_proto",
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "greeter_generated_srcs",
+    srcs = [":greeter_go_proto"],
+    output_group = "go_generated_srcs",
+)
+
+# copy_to_directory(
+#     name = "greeter_gen_dir",
+#     srcs = [":greeter_generated_srcs"],  # the multi-file filegroup is fine here
+# )
+
+genrule(
+    name = "greeter_pb_go_src",
+    srcs = [":greeter_generated_srcs"],  # the output_group filegroup
+    outs = ["greeter.pb.go.gen"],
+    cmd = """
+for f in $(SRCS); do
+  case "$$f" in */greeter.pb.go) cp "$$f" "$@" ;; esac
+done
+""",
+)
+
+genrule(
+    name = "greeter_grpc_pb_go_src",
+    srcs = [":greeter_generated_srcs"],
+    outs = ["greeter_grpc.pb.go.gen"],
+    cmd = """
+for f in $(SRCS); do
+  case "$$f" in */greeter_grpc.pb.go) cp "$$f" "$@" ;; esac
+done
+""",
+)
+
+# `bazel run //proto/foo:write_generated` copies the file into the tree.
+# It also creates a test that FAILS if the committed file is stale.
+write_source_files(
+    name = "write_generated",
+    files = {
+        "greeter.pb.go": ":greeter_pb_go_src",
+        "greeter_grpc.pb.go": ":greeter_grpc_pb_go_src",
+        # "foo.pb.go": ":greeter_gen_dir",
+    },
+)
+
+go_library(
+    name = "greeter",
+    embed = [":greeter_go_proto"],
+    importpath = "github.com/TerrenceHo/monorepo/proto/api/v1/greeter",
+    visibility = ["//visibility:public"],
+)
+
+# rust_prost_library(
+#     name = "greeter_rs_proto",
+#     proto = ":greeter_proto",
+#     visibility = ["//visibility:public"],
+# )

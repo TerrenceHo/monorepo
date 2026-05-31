@@ -1,0 +1,2 @@
+bazel_dep(name = "protobuf", version = "35.0")
+bazel_dep(name = "grpc", version = "1.81.0")  # if using gRPC

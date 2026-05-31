@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package myorg.api.v1.greeter;
+
+option go_package = "github.com/TerrenceHo/monorepo/proto/api/v1/greeter";
+
+// The greeting service definition.
+service GreeterService {
+  // Sends a greeting.
+  rpc SayHello(HelloRequest) returns (HelloReply);
+
+  // Server-streaming: sends multiple greetings over time.
+  rpc SayHelloStream(HelloRequest) returns (stream HelloReply);
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+
+  // Optional greeting style.
+  GreetingStyle style = 2;
+}
+
+// The response message containing the greeting.
+message HelloReply {
+  string message = 1;
+
+  // Server timestamp of when the greeting was generated.
+  int64 timestamp_unix = 2;
+}
+
+// Enum for greeting styles.
+enum GreetingStyle {
+  GREETING_STYLE_UNSPECIFIED = 0;
+  GREETING_STYLE_FORMAL = 1;
+  GREETING_STYLE_CASUAL = 2;
+  GREETING_STYLE_ENTHUSIASTIC = 3;
+}
