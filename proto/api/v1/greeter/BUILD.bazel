@@ -69,19 +69,9 @@ write_source_files(
 
 go_library(
     name = "greeter",
-    srcs = [
-        "greeter.pb.go",
-        "greeter_grpc.pb.go",
-    ],
+    embed = [":greeter_go_proto"],
     importpath = "github.com/TerrenceHo/monorepo/proto/api/v1/greeter",
     visibility = ["//visibility:public"],
-    deps = [
-        "@org_golang_google_grpc//:grpc",
-        "@org_golang_google_grpc//codes",
-        "@org_golang_google_grpc//status",
-        "@org_golang_google_protobuf//reflect/protoreflect",
-        "@org_golang_google_protobuf//runtime/protoimpl",
-    ],
 )
 
 # rust_prost_library(

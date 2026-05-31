@@ -6,6 +6,7 @@ go_library(
     importpath = "github.com/TerrenceHo/monorepo/services/greeter/cmd/greeter-server",
     visibility = ["//visibility:private"],
     deps = [
+        "//proto/api/v1/greeter",
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_grpc//reflection",
     ],
@@ -21,4 +22,5 @@ go_test(
     name = "greeter-server_test",
     srcs = ["main_test.go"],
     embed = [":greeter-server_lib"],
+    deps = ["//proto/api/v1/greeter"],
 )
