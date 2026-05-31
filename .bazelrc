@@ -39,10 +39,11 @@ build --workspace_status_command=bazel/scripts/workspace_status_command.sh
 test --workspace_status_command=bazel/scripts/workspace_status_command.sh
 run --workspace_status_command=bazel/scripts/workspace_status_command.sh
 
-# with toolchains_llvm, clang is the compiler. Use mold for linking
-build --linkopt=-fuse-ld=lld
+# with toolchains_llvm, clang is the compiler. Use ld for linking
+# TODO: lld is faster, but doesn't exist in GitHub Actions. Can we make it available without downloading?
+build --linkopt=-fuse-ld=ld
 # Rust inherit CPP toolchain linker
-build --@rules_rust//rust/settings:extra_rustc_flags=-Clink-arg=-fuse-ld=lld
+build --@rules_rust//rust/settings:extra_rustc_flags=-Clink-arg=-fuse-ld=ld
 
 ##############################
 # Settings for running tests #
