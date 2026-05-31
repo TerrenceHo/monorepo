@@ -19,7 +19,7 @@ jobs:
       - name: Show available linkers
         run: |
           echo "PATH ld candidates:"
-          for l in ld ld.bfd ld.gold ld.lld ld.mold; do
+          for l in ld ld.bfd ld.gold ld.lld ld.mold ldd gold mold; do
             command -v $l && $l --version | head -1 || echo "$l: not found"
           done
           ls /usr/bin/ld.lld* 2>/dev/null || echo "no ld.lld* in /usr/bin"
