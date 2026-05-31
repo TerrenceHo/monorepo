@@ -25,6 +25,8 @@ jobs:
           ls /usr/bin/ld.lld* 2>/dev/null || echo "no ld.lld* in /usr/bin"
       - name: show PATH
         run: echo $PATH
+      - name: show gcc
+        run: which gcc
       # build
       - name: builds the code
         run: bazel build --config=pr-ci --remote_header=x-buildbuddy-api-key=${BUILD_BUDDY_API_KEY} //...
