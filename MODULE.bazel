@@ -6,6 +6,9 @@ include("//bazel/module:base.MODULE.bazel")
 # Gazelle
 include("//bazel/module:gazelle.MODULE.bazel")
 
+# Protobuf
+include("//bazel/module:proto.MODULE.bazel")
+
 # C++
 include("//bazel/module:cpp.MODULE.bazel")
 
@@ -17,3 +20,6 @@ include("//bazel/module:go.MODULE.bazel")
 
 # Python
 include("//bazel/module:python.MODULE.bazel")
+
+# Rust
+include("//bazel/module:rust.MODULE.bazel")

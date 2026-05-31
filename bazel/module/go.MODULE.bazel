@@ -13,6 +13,8 @@ use_repo(
     "com_github_spf13_viper",
     "com_github_stretchr_testify",
     "io_etcd_go_bbolt",
+    "org_golang_google_grpc",
+    "org_golang_google_protobuf",
     "org_golang_x_crypto",
     "org_uber_go_zap",
 )

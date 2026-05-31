@@ -22,7 +22,6 @@ build --show_result=20
 # Turn on --incompatible_strict_action_env. Ensures that bazel cache is not
 # invalidated when `yarn bazel` is run.
 build --incompatible_strict_action_env
-# run --incompatible_strict_action_env
 
 # Avoid using random headers on a machine that can interfere with Bazel's C++
 # toolchains
@@ -39,6 +38,11 @@ build --guard_against_concurrent_changes
 build --workspace_status_command=bazel/scripts/workspace_status_command.sh
 test --workspace_status_command=bazel/scripts/workspace_status_command.sh
 run --workspace_status_command=bazel/scripts/workspace_status_command.sh
+
+# with toolchains_llvm, clang is the compiler. Use mold for linking
+build --linkopt=-fuse-ld=lld
+# Rust inherit CPP toolchain linker
+build --@rules_rust//rust/settings:extra_rustc_flags=-Clink-arg=-fuse-ld=lld
 
 ##############################
 # Settings for running tests #
