@@ -31,7 +31,7 @@ jobs:
       - name: Run all tests
         run: bazel test --config=master-ci --remote_header=x-buildbuddy-api-key=${BUILD_BUDDY_API_KEY} //...
       - name: Logs in with Podman to GHCR
-        uses: redhat-actions/podman-login@v1
+        uses: redhat-actions/podman-login@v2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
